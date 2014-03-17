@@ -1,0 +1,38 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>系统登录</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/login.css")"/>
+    <script type="text/javascript" src="@Url.Content("~/scripts/lib/jquery/jquery.js")"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#form_login').focus();
+        });
+        </script>
+</head>
+<body>
+    <div class="login">
+        <div class="container">
+            <div class="message">
+            </div>
+            <div class="content">
+                <form name="LoginForm" id="LoginForm" action="@Url.Action("Login", "Account")" method="post" onsubmit="">
+                <span class="logo"></span>
+                <label for="username">
+                    用户名</label>
+                <input name="form_login" id="form_login" type="text" />
+                <label for="password">
+                    密码</label>
+                <input name="form_password" value="" type="password" />
+                <input value="log in" type="submit" />
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

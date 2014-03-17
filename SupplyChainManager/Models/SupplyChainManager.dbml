@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SupplyChainManager" Class="SupplyChainManagerDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\sqlexpress;Initial Catalog=SupplyChainManager;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SupplyChainManagerConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.[User]" Member="User">
+    <Type Name="User">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Login" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Position" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Office" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Tel" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Gender" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Birthday" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsHoliday" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="AgentID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AgentName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="AgentBegin" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AgentEnd" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Profile" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="CostCenter" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="[Level]" Member="Level" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Reserve1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Reserve2" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Reserve3" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Reserve4" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Module" Member="Module">
+    <Type Name="Module">
+      <Column Name="Id" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ParentId" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Url" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

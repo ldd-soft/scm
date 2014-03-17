@@ -1,0 +1,106 @@
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Ext Rater Widget</title>
+<link rel="stylesheet" type="text/css" href="../ext-1.1/resources/css/ext-all.css" />
+<link rel="stylesheet" type="text/css" href="Rater.css" />
+
+<script type="text/javascript" src="../ext-1.1/adapter/yui/yui-utilities.js"></script>
+<script type="text/javascript" src="../ext-1.1/adapter/yui/ext-yui-adapter.js"></script>
+<script type="text/javascript" src="../ext-1.1/ext-all-debug.js"></script>
+
+<script type="text/javascript" src="Rater.js"></script>
+<script type="text/javascript" src="ext-rater.js"></script>
+
+
+<style media="screen" type="text/css">
+	/* global css */
+	body {
+		font: normal 12px arial, helvetica, sans-serif;
+	}
+
+	fieldset {
+		margin:1em .3em;
+		padding:.4em;
+	}
+	
+</style>
+
+</head>
+
+<body>
+
+<div id="container"></div>
+
+<form name"x">
+	<fieldset id="fs">
+		<legend>just some buttons for testing</legend>
+		<input type="button" id="btn1" value="test 1">
+		<input type="button" id="btn2" value="test 2">
+	</fieldset>
+</form>
+
+<form id="frm" name="frm">
+	<fieldset id="fs">
+		<legend>Applied to textfield</legend>
+		<input type="text" id="r" />
+	</fieldset>
+</form>
+
+<form id="frm2" name="frm2">
+	<fieldset id="fs2">
+		<legend>Applied to textfield set with value (Youtube style)</legend>
+		<input type="text" id="r2" value="3" />
+	</fieldset>
+</form>
+
+<form id="frm3" name="frm3">
+	<fieldset id="fs3">
+		<legend>Rendered to a container</legend>
+	</fieldset>
+</form>
+
+<fieldset id="fs4">
+	<legend>Used in a form</legend>
+	<div id="dfrm" style="width:300px;">
+		<div class="x-box-tl"><div class="x-box-tr"><div class="x-box-tc"></div></div></div>
+		<div class="x-box-ml"><div class="x-box-mr"><div class="x-box-mc">
+			<h3 style="margin-bottom:5px;">Simple Form</h3>
+			<div id="form-ct">
+
+			</div>
+		</div></div></div>
+		<div class="x-box-bl"><div class="x-box-br"><div class="x-box-bc"></div></div></div>
+	</div>
+</fieldset>
+
+
+<!--
+<form id="h" name="h">
+	<fieldset>
+		<legend>raw html ext-rater</legend>
+		<div class="x-form-rater-wrap">
+			<ul class=x-form-rater-stars style="width:200px; height:20px;">
+					<li style="width:180px height:20px;" class="x-form-rater-vote"></li>
+					<li style="width:200px" class=""></li>
+					<li style="width:180px" class=""></li>
+					<li style="width:160px" class=""></li>
+					<li style="width:140px" class=""></li>
+					<li style="width:120px" class="x-rater-vote"></li>
+					<li style="width:100px" class="x-rater-vote"></li>
+					<li style="width: 80px" class="x-rater-hover"></li>
+					<li style="width: 60px" class="x-rater-hover"></li>
+					<li style="width: 40px" class="x-rater-voted"></li>
+					<li style="width: 20px" class="x-rater-voted"></li>
+			</ul>
+		</div>
+	</fieldset>
+</form>
+-->
+
+
+</body>
+
+</html>

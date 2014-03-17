@@ -1,0 +1,224 @@
+body
+{
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+.login
+{
+    background: url('../images/login_back.gif') no-repeat center center;
+    background-size: cover;
+    font-family: 'Open Sans' , sans-serif;
+    font-size: 13px;
+    height: 380px;
+    overflow: auto;
+    margin: 8.5% 13% 0 13%;
+}
+.login h1
+{
+    font-size: 26px;
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+.login p
+{
+    line-height: 1.4;
+    margin-bottom: 15px;
+}
+.login .container
+{
+    background-color: #f6f6f6;
+    overflow: auto;
+    margin: 0 auto;
+    position: relative;
+    top: 56%;
+    margin-top: -135px;
+    width: 750px;
+}
+.login .content
+{
+    padding: 22px 30px 12px 20px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    float: right;
+    width: 250px;
+}
+.login .message
+{
+    float: left;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    width: 493px;
+    height: 251px;
+    background: url('../images/login_logo.png') no-repeat center center;
+    overflow: hidden;
+}
+.login .message iframe
+{
+    width: 493px;
+    height: 321px;
+    border: 0;
+}
+.login .validate
+{
+    padding: 60px 0;
+    text-align: center;
+    width: 100%;
+}
+.login .validate input[type='submit']
+{
+    margin: 0 auto 15px;
+    width: auto;
+}
+.login .logo
+{
+    margin: 0px auto 25px;
+    display: block;
+}
+.login input[type='text'], .login input[type='password']
+{
+    background-color: #fff;
+    border: 2px solid #ccc;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #333;
+    font-size: 14px;
+    margin-bottom: 15px;
+    padding: 6px;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    -ms-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+    width: 100%;
+}
+.login input[type='text']:hover, .login input[type='password']:hover
+{
+    border-color: #888;
+}
+.login input[type='text']:focus, .login input[type='password']:focus
+{
+    outline: none;
+    border-color: #2a9fd4;
+}
+.login input[type='submit']
+{
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxIDEiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPgo8bGluZWFyR3JhZGllbnQgaWQ9ImcyODIiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzJBOUZENCIgb2Zmc2V0PSIwIi8+PHN0b3Agc3RvcC1jb2xvcj0iIzFFOTNDOCIgb2Zmc2V0PSIxIi8+CjwvbGluZWFyR3JhZGllbnQ+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InVybCgjZzI4MikiIC8+Cjwvc3ZnPg==);
+    background-color: #2a9fd4;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#2a9fd4), to(#1e93c8));
+    background-image: -webkit-linear-gradient(top, #2a9fd4, #1e93c8);
+    background-image: -moz-linear-gradient(top, #2a9fd4, #1e93c8);
+    background-image: -o-linear-gradient(top, #2a9fd4, #1e93c8);
+    background-image: -ms-linear-gradient(top, #2a9fd4, #1e93c8);
+    background-image: linear-gradient(top, #2a9fd4, #1e93c8);
+    border: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    color: #fff;
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 12px 24px;
+    margin-bottom: 15px;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    -ms-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+    width: 100%;
+}
+.login input[type='submit']:hover
+{
+    background: #0d7cb3;
+}
+.login input[type='submit']:focus
+{
+    outline: 0;
+}
+.login label
+{
+    display: block;
+    margin-bottom: 3px;
+}
+.login .warning
+{
+    color: #c30331;
+}
+.login .warning a
+{
+    color: #c30331;
+}
+.login .warning a:hover
+{
+    color: #f5043e;
+}
+.login .loader
+{
+    display: block;
+    margin: 25px auto;
+}
+.login .privacy
+{
+    font-size: 11px;
+    margin: 5px auto;
+    position: relative;
+    top: 50%;
+    width: 760px;
+}
+.login .privacy a
+{
+    color: #ccc;
+    text-decoration: none;
+}
+.login .privacy a:hover
+{
+    text-decoration: underline;
+}
+.BHMainMenuBar
+{
+    display: none;
+}
+strong
+{
+    font-weight: 600;
+}
+.browser-detect .container
+{
+    width: 860px;
+}
+.browser-detect .message
+{
+    background: #4270a3;
+    color: #fff;
+    width: 450px;
+    padding: 20px 10px 0 10px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+.browser-detect .message p
+{
+    margin: 0 20px 40px 20px;
+    font-size: 16px;
+    line-height: 26px;
+    text-align: center;
+}
+.browser-detect .message img
+{
+    display: block;
+    margin: 0 auto;
+}
+.browser-detect .content
+{
+    float: left;
+    padding: 20px 10px 0 30px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 370px;
+}

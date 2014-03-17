@@ -1,0 +1,1465 @@
+﻿body
+{
+    color: #333333;
+    font-family: verdana,arial,helvetica,sans-serif;
+    font-size: 12px;
+    line-height: 150%;
+}
+
+#banner_top
+{
+    background: url("../images/header-bg.png");
+    height: 42px;
+}
+
+#banner_buttom
+{
+    clear: both;
+    height: 4px;
+    background: url("../images/ia-bg.png") repeat-x scroll 0 0 transparent !important;
+    font-size: 0px;
+}
+
+.menu_top
+{
+    float: left;
+    height: 3px;
+    width: 140px;
+    font-size: 0px;
+}
+
+#banner_title
+{
+    background: url("../images/logo.png") no-repeat scroll 8px 14px transparent;
+    color: #0075c1;
+    font-weight: bold;
+    font-size: 21px;
+    padding: 10px 10px 3px 45px;
+    margin-left: 10px;
+    margin-top: 2px;
+    width: 200px;
+    float: left;
+}
+
+div#banner_top form fieldset
+{
+    border-bottom: medium none;
+    border-left: medium none;
+    border-right: medium none;
+    border-top: medium none;
+    display: block;
+    margin: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    width: 125px;
+    position: relative;
+}
+
+div#banner_top form fieldset input.EditField
+{
+    background: url("../images/fast-find.png") fixed no-repeat 12px 8px;
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    display: block;
+    font-size: 12px !important;
+    height: 28px;
+    margin: -1px 0;
+    padding-bottom: 0;
+    padding-left: 9px;
+    padding-right: 0;
+    padding-top: 5px;
+    width: 126px !important;
+}
+
+input.noText
+{
+    color: #bbbbbb;
+}
+
+div#banner_top form fieldset button
+{
+    background: url("../images/mag.png") no-repeat center 50%;
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    display: block;
+    position: absolute;
+    right: 5px;
+    top: 3px;
+    width: 20px;
+    height: 20px;
+}
+
+div#banner_top form fieldset button span.icn
+{
+    display: none;
+}
+
+div#banner_top form fieldset button span
+{
+    display: block;
+    height: 20px;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    text-indent: -999em;
+    top: 0;
+    width: 100%;
+}
+
+div#banner_top form
+{
+    float: left;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+}
+
+div#banner_top form fieldset legend
+{
+    display: none;
+}
+
+div#banner_top ul
+{
+    display: block;
+    float: right;
+    list-style-type: none;
+    margin: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+}
+
+div#banner_top li
+{
+    float: left;
+    padding-bottom: 8px;
+    padding-left: 10px;
+    padding-right: 8px;
+    padding-top: 12px;
+    position: relative;
+    list-style-type: none;
+    margin: 0;
+}
+
+div#banner_top li.help
+{
+    margin-right: 10px;
+    padding-right: 2px;
+}
+
+#login_user
+{
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 10px 3px 20px;
+    margin-left: 10px;
+    width: 200px;
+    float: right;
+}
+
+.menuBox
+{
+    background: url("../images/ia-bg.png");
+    height: 35px;
+}
+
+#topMenu
+{
+    height: 32px;
+    padding: 5 0 5 10px;
+}
+
+.menuBox .x-btn button
+{
+    color: #FFF;
+    font: bold 14px Tahoma, sans-serif;
+    margin-top: -2px;
+}
+
+.menuBox .x-btn-over button, .menuBox .x-btn-menu-active button
+{
+    color: #000;
+    font: bold 14px Tahoma, sans-serif;
+    margin-top: -2px;
+}
+
+.buttons-top
+{
+    margin-bottom: 10px;
+    margin-top: -5px;
+    border-style: none;
+    border-color: #FFF;
+}
+
+.buttons-top .x-panel-btns
+{
+    overflow: hidden;
+    padding: 0px;
+}
+
+.shortcut .x-panel-bwrap .x-panel-body
+{
+    background-color: #F8F8F8;
+    border-color: #D0D0D0;
+}
+
+.x-menu
+{
+    background-color: #F0F0F0;
+    background-image: url("../images/menu.gif");
+}
+
+.shortcut .x-tree-node .x-tree-selected
+{
+    background-color: #515a6d !important;
+    border-bottom: #bbb 1px solid;
+    border-left: #2d9ad0 7px solid;
+    color: #fff;
+    cursor: hand;
+    font-family: Helvetica, sans-serif !important;
+    font-size: 10pt;
+    font-weight: bold;
+    height: 28px;
+    overflow: hidden;
+    padding-bottom: 6px;
+    padding-left: 0px;
+    padding-right: 2px;
+    padding-top: 6px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.shortcut .x-tree-node-el
+{
+    background-color: #FFF;
+    border-bottom: #bbb 1px solid;
+    border-left: #ccc 7px solid;
+    color: #fff;
+    cursor: hand;
+    font-family: Helvetica, sans-serif !important;
+    font-size: 10pt;
+    font-weight: bold;
+    height: 28px;
+    overflow: hidden;
+    padding-bottom: 6px;
+    padding-left: 0px;
+    padding-right: 2px;
+    padding-top: 6px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.shortcut .x-tree-node .icon-new
+{
+    background-image: url("../images/icons-orange.png");
+    background-position: -360px 0 !important;
+    width: 20px;
+}
+
+.shortcut .x-tree-node .x-tree-selected .icon-new
+{
+    background-image: url("../images/icons-white.png");
+    background-position: -360px 0 !important;
+    width: 20px;
+}
+
+.shortcut .x-tree-node a span, .x-dd-drag-ghost a span
+{
+    color: #000000;
+}
+
+.shortcut .x-tree-node .x-tree-selected a span
+{
+    color: #FFFFFF;
+}
+
+.x-panel-header, .headtoolbar
+{
+    background-image: url("../images/new-grad-8.png");
+    border-color: #D0D0D0;
+    color: #000;
+    font-family: tahoma,arial,verdana,sans-serif;
+    font-size: 13pt;
+    font-weight: bold;
+}
+
+.headtoolbar2
+{
+    border-color: #D0D0D0;
+    background-color: #F0F0F0;
+    font-family: tahoma,arial,verdana,sans-serif;
+    font-size: 10pt;
+    font-weight: bold;
+    text-align: center;
+}
+
+.headtoolbar span
+{
+    margin-left: 10px;
+}
+
+.x-panel-header-text
+{
+    margin: 0 0 0 10px;
+    line-height: 22px;
+}
+
+.HeadingColorTag
+{
+    float: left;
+    background-color: #2d9ad0;
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    height: 22px;
+    margin-left: 6px;
+    width: 22px;
+}
+
+.HeadingColorTag2
+{
+    float: left;
+    background-color: #FF9900;
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    height: 22px;
+    margin-left: 6px;
+    width: 22px;
+}
+
+.xtb-text .ThemeHeadingText
+{
+    float: left;
+    color: #333333;
+    font-family: tahoma,arial,verdana,sans-serif;
+    font-size: 13pt;
+    font-weight: 700;
+    padding-left: 10px;
+}
+
+.x-fieldset
+{
+    padding: 0;
+    margin: 0px;
+}
+
+.x-fieldset legend
+{
+    color: #15428B;
+    font: bold 12px tahoma,arial,helvetica,sans-serif;
+}
+
+.x-form-field
+{
+    font: 12px tahoma,arial,helvetica,sans-serif;
+}
+
+.x-form-cb-label
+{
+    font: 12px tahoma,arial,helvetica,sans-serif;
+}
+
+.x-fieldset-bwrap
+{
+    padding: 0px;
+}
+
+form .x-panel-body-noheader, .x-panel-mc .x-panel-body
+{
+    border-color: #FFF;
+    padding: 0 0px 0 0px;
+}
+
+.inside-panel .x-panel-body-noheader, .x-panel-mc .x-panel-body
+{
+    border-color: #FFF;
+    background-color: #FFF;
+    padding: 3px;
+}
+
+.content-panel .x-panel-body-noheader, .x-panel-mc .x-panel-body
+{
+    border-color: #ccc;
+    padding: 10px;
+    background-color: #F9F9F9;
+}
+
+.detail-grid
+{
+    margin-top: 6px;
+}
+
+.detail-grid .x-panel-body-noheader, .x-panel-mc .x-panel-body
+{
+    border-color: #ccc;
+    border-width: 1;
+    background-color: #F9F9F9;
+}
+
+.tab-detail-grid .x-panel-body-noheader, .x-panel-mc .x-panel-body
+{
+    border-bottom-color: #ccc;
+    border-left-color: #ccc;
+    border-right-color: #ccc;
+    border-top-color: #FFF;
+    border-width: 1;
+    background-color: #F9F9F9;
+}
+
+.tab-detail-panel .x-fieldset
+{
+    border-bottom-color: #FFF;
+    border-left-color: #FFF;
+    border-right-color: #FFF;
+    border-top-color: #FFF;
+    margin-top: 12px;
+}
+
+.tab-detail-panel .tab-detail-grid .x-panel-body-noheader, .x-panel-mc .x-panel-body
+{
+    border-bottom-color: #CCC;
+    border-left-color: #CCC;
+    border-right-color: #CCC;
+    border-top-color: #CCC;
+    margin-top: 4px;
+}
+
+.tab-detail-panel .x-fieldset .detail-header
+{
+    text-decoration: underline;
+}
+
+/* [OPTIONAL] -- may be used for either Ext.grid.GroupSummary / Ext.ux.grid.GridSummary plugins */
+.x-grid3-summary-row
+{
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+    color: #333;
+    background: #f1f2f4;
+}
+.x-grid3-summary-row .x-grid3-cell-inner
+{
+    font-weight: bold;
+    padding-bottom: 4px;
+}
+.x-grid3-cell-first .x-grid3-cell-inner
+{
+    padding-left: 6px;
+}
+.x-grid-hide-summary .x-grid3-summary-row
+{
+    display: none;
+}
+.x-grid3-summary-msg
+{
+    padding: 4px 16px;
+    font-weight: bold;
+}
+
+
+/* [REQUIRED] (by Ext.ux.grid.GridSummary plugin) */
+.x-grid3-gridsummary-row-inner
+{
+    overflow: hidden;
+    width: 100%;
+}
+/* IE6 requires width:100% for hori. scroll to work */
+.x-grid3-gridsummary-row-offset
+{
+    width: 10000px;
+}
+.x-grid-hide-gridsummary .x-grid3-gridsummary-row-inner
+{
+    display: none;
+}
+
+.DBListDescriptionHeading
+{
+    border-bottom: #dddddd 1px solid;
+    border-left: #dddddd 0 solid;
+    border-right: #dddddd 0 solid;
+    border-top: #dddddd 0 solid;
+    color: black;
+    font-family: 'Droid Sans' , sans-serif;
+    font-size: 10pt;
+    padding-bottom: 1px;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 1px;
+    vertical-align: top;
+}
+
+.DBListDescription
+{
+    border-bottom: #dddddd 1px solid;
+    border-left: #dddddd 0 solid;
+    border-right: #dddddd 0 solid;
+    border-top: #dddddd 0 solid;
+    color: #333333;
+    font-family: 'Droid Sans' , sans-serif;
+    font-size: 10pt;
+    padding-bottom: 1px;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 1px;
+    vertical-align: top;
+}
+
+fieldset
+{
+    border: 0 none;
+    font-family: inherit;
+    font-size: 100%;
+    font-style: inherit;
+    font-weight: inherit;
+    margin: 0;
+    outline: 0 none;
+    padding: 0;
+    vertical-align: baseline;
+}
+
+.x-grid3-scroller .inner-message, .x-grid3-scroller .inner-item
+{
+    color: #777777;
+    font-size: 14px;
+    padding-top: 10px;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+
+.x-toolbar span, .detail-title
+{
+    color: #000;
+    font: bold 10pt tahoma,arial,helvetica,sans-serif;
+}
+
+.hidden
+{
+    display: none;
+}
+
+.info-panel .x-panel-body-noheader, .x-panel-mc .x-panel-body
+{
+    border-left-color: #ccc;
+    background-color: #FFF;
+}
+
+.ItemInfoTable
+{
+    background-color: white;
+    border-bottom: 1px outset;
+    border-left: 1px outset;
+    border-right: 0 outset;
+    border-top: 0 outset;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 10px;
+    padding-top: 5px;
+    width: 155px;
+}
+
+.ItemInfoHeading
+{
+    border-bottom: medium none;
+    border-left: medium none;
+    border-right: medium none;
+    border-top: medium none;
+    color: #333;
+    font-size: 10pt;
+    font-weight: bold;
+    padding-bottom: 3px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 3px;
+    font-family: 'Droid Sans' , sans-serif;
+}
+
+.ItemInfo
+{
+    border-bottom: #efefef 1px solid;
+    color: #222222;
+    font-size: 10pt;
+    font-weight: normal;
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+    font-family: 'Droid Sans' , sans-serif;
+}
+
+.highInfo
+{
+    color: Red;
+    font-size: 12pt;
+}
+
+.highInfo a:active
+{
+    color: red;
+}
+
+.emailInfo
+{
+    color: blue;
+    font-size: 11pt;
+}
+
+.emailInfo a:active
+{
+    color: blue;
+}
+
+.table-panel .x-panel-body-noheader, .x-panel-mc .x-panel-body
+{
+    border-color: #fff;
+}
+
+.info-panel table
+{
+    width: 95%;
+}
+
+.EditFieldLabel
+{
+    background-color: #fafafa;
+    border-bottom: #efefef 1px solid;
+    color: #333333;
+    font-family: 'Droid Sans' , sans-serif;
+    font-size: 10pt;
+    font-weight: bold;
+    padding-left: 15px;
+    padding-right: 5px;
+    padding-top: 5px;
+    height: 23px;
+    text-align: left !important;
+    width: 120px;
+}
+
+.EditFieldHint
+{
+    color: #990000;
+    font-family: 'Droid Sans' , sans-serif;
+    font-size: 10pt;
+    font-weight: normal;
+}
+
+.EditFieldLabel .x-panel-body
+{
+    background-color: #fafafa;
+}
+
+.Edit
+{
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    padding-bottom: 5px;
+    padding-left: 1px;
+    padding-right: 1px;
+    padding-top: 5px;
+    width: 650px;
+}
+
+.EditField
+{
+    border-bottom: medium none;
+    border-left: medium none;
+    border-right: medium none;
+    border-top: medium none;
+    color: #333333;
+    font-family: 'Droid Sans' , sans-serif;
+    font-size: 11pt;
+    font-weight: normal;
+    width: auto;
+    padding-left: 5px;
+}
+
+.db-ico
+{
+    background-repeat: no-repeat;
+    height: 16px;
+    width: 16px;
+    float: left;
+}
+
+.ico-clients
+{
+    background: url("../icons/message.png") no-repeat scroll 0 0 transparent !important;
+}
+
+.ico-candidates
+{
+    background: url("../icons/user.png") no-repeat scroll 0 0 transparent !important;
+}
+
+.ico-square
+{
+    background: url("../icons/shape_square.png") no-repeat scroll 0 0 transparent !important;
+    background-position: center 0 !important;
+}
+
+.ico-attach
+{
+    background: url("../icons/attach.png") no-repeat scroll 0 0 transparent !important;
+}
+
+.ico-orders
+{
+    background: url("../icons/order.png") no-repeat scroll 0 0 transparent !important;
+}
+
+.ico-unknown
+{
+    background-image: url("../icons/types/unknown.png") !important;
+}
+.ico-arrowleft
+{
+    background-image: url("../icons/arrowleft.png") !important;
+}
+.ico-2arrowleft
+{
+    background-image: url("../icons/2arrowleft.png") !important;
+}
+.ico-arrowright
+{
+    background-image: url("../icons/arrowright.png") !important;
+}
+.ico-2arrowright
+{
+    background-image: url("../icons/2arrowright.png") !important;
+}
+.ico-archive-obj
+{
+    background: url("../icons/archive_obj.png") no-repeat scroll 0 0 transparent !important;
+}
+.ico-unarchive-obj
+{
+    background: url("../icons/unarchive_obj.png") no-repeat scroll 0 0 transparent !important;
+    padding-top: 1px !important;
+}
+.ico-reporting
+{
+    background: url("../icons/all_16_16_vertical.png") no-repeat scroll 0 -258px transparent !important;
+}
+.ico-task-start
+{
+    background-image: url("../icons/task_start.png") !important;
+}
+.ico-task-end
+{
+    background-image: url("../icons/task_end.png") !important;
+}
+.ico-recurrent
+{
+    background-image: url("../icons/recurrent.png") !important;
+}
+.ico-template
+{
+    background-image: url("../icons/template.png") !important;
+}
+.ico-account
+{
+    background-image: url("../icons/account.png") !important;
+}
+.ico-add
+{
+    background-image: url("../icons/add.png") !important;
+}
+.ico-addtag
+{
+    background-image: url("../icons/tags.png") !important;
+}
+.ico-administration
+{
+    background-image: url("../icons/administration.png") !important;
+}
+.ico-attachment
+{
+    background-image: url("../icons/attach.png") !important;
+}
+.ico-sent
+{
+    background-image: url("../icons/mail_send.png") !important;
+}
+.ico-reply
+{
+    background-image: url("../icons/mail_reply.png") !important;
+}
+.ico-back
+{
+    background-image: url("../icons/back.png") !important;
+}
+.ico-chart
+{
+    background-image: url("../icons/chart.png") !important;
+}
+.ico-checkin
+{
+    background-image: url("../icons/checkin.png") !important;
+}
+.ico-checkout
+{
+    background-image: url("../icons/checkout.png") !important;
+}
+.ico-classify
+{
+    background-image: url("../icons/classify.png") !important;
+}
+.ico-unclassify
+{
+    background-image: url("../icons/unclassify.png") !important;
+}
+.ico-complete
+{
+    background-image: url("../icons/complete.png") !important;
+}
+.ico-reopen
+{
+    background-image: url("../icons/reopen.png") !important;
+}
+.ico-contact
+{
+    background: url("../icons/all_16_16_vertical.png") no-repeat scroll 0 -520px transparent !important;
+}
+.ico-company
+{
+    background: url("../icons/all_16_16_vertical.png") no-repeat scroll 0 -540px transparent !important;
+}
+.ico-dash-expanded
+{
+    background: url("../icons/all_16_16_vertical.png") no-repeat scroll 0 -19px transparent !important;
+    float: right;
+}
+.ico-dash-collapsed
+{
+    background: url("../icons/all_16_16_vertical.png") no-repeat scroll 0 -1155px transparent !important;
+    float: right;
+}
+.ico-delete
+{
+    background: url("../icons/all_16_16_vertical.png") no-repeat scroll 0 -498px transparent !important;
+}
+.ico-doc
+{
+    background-image: url("../icons/doc.png") !important;
+}
+.ico-download
+{
+    background-image: url("../icons/download.png") !important;
+}
+.ico-edit
+{
+    background: url("../icons/all_16_16_vertical.png") no-repeat scroll 0 -378px transparent !important;
+}
+.ico-email, .ico-emails, .ico-mail
+{
+    background: url("../icons/all_16_16_vertical.png") no-repeat scroll 0 -438px transparent !important;
+}
+.ico-check_mails
+{
+    background-image: url("../icons/mail_receive.png") !important;
+}
+.ico-reply-all
+{
+    background-image: url("../icons/mail_replyall.png") !important;
+}
+.ico-forward
+{
+    background-image: url("../icons/mail_forward.png") !important;
+}
+.ico-mail-mark-unread
+{
+    background-image: url("../icons/mail_mark_unread.png") !important;
+}
+.ico-mail-mark-read
+{
+    background-image: url("../icons/mail_mark_read.png") !important;
+}
+.ico-mark-as-read
+{
+    background-image: url("../icons/mail_mark_read.png") !important;
+}
+.ico-mark-as-unread
+{
+    background-image: url("../icons/mail_mark_unread.png") !important;
+}
+.ico-mail-mark-spam
+{
+    background-image: url("../icons/mail_mark_spam.png") !important;
+}
+.ico-mail-mark-ham
+{
+    background-image: url("../icons/mail_mark_ham.png") !important;
+}
+.ico-email_menu
+{
+    background-image: url("../icons/email.png") !important;
+}
+.ico-select
+{
+    background-image: url("../icons/select.png") !important;
+}
+.ico-empty
+{
+    background-image: url("../../images/s.gif") !important;
+}
+.ico-event, .ico-events
+{
+    background: url("../icons/all_16_16_vertical.png") no-repeat scroll 0 2px transparent !important;
+}
+.ico-calendar-month
+{
+    background-image: url("../icons/view_calendar_month.png") !important;
+}
+.ico-calendar-week
+{
+    background-image: url("../icons/view_calendar_week.png") !important;
+}
+.ico-calendar-week5
+{
+    background-image: url("../icons/view_calendar_week5.png") !important;
+}
+.ico-file_revision
+{
+    background-image: url("../icons/types/file.png") !important;
+}
+.ico-help
+{
+    background-image: url("../icons/help.png");
+}
+.ico-hide_messages
+{
+    background-image: url("../icons/hide_messages.png") !important;
+}
+
+.ico-locked
+{
+    background-image: url("../icons/locked.png") !important;
+}
+.ico-projectmessage, .ico-message
+{
+    background: url("../icons/message.png") no-repeat scroll 0 0 transparent !important;
+}
+.ico-comment
+{
+    background-image: url("../icons/comment.png") !important;
+}
+.ico-projectmilestone, .ico-milestone, .ico-milestones
+{
+    background-image: url("../icons/milestone.png") !important;
+}
+.ico-urgent-milestone
+{
+    background-image: url("../icons/exclamation.png") !important;
+}
+.ico-more
+{
+    background-image: url("../icons/more.png") !important;
+}
+.ico-new
+{
+    background: url("../icons/all_16_16_vertical.png") no-repeat scroll 0 -600px transparent !important;
+}
+.ico-copy
+{
+    background-image: url("../icons/copy.png") !important;
+}
+.ico-password
+{
+    background-image: url("../icons/password.png") !important;
+}
+.ico-permissions
+{
+    background-image: url("../icons/permissions.png") !important;
+}
+.ico-picture
+{
+    background-image: url("../icons/picture.png") !important;
+}
+.ico-properties
+{
+    background-image: url("../icons/properties.png") !important;
+}
+.ico-prsn
+{
+    background: url("../icons/all_16_16_vertical.png") no-repeat scroll 0 -320px transparent !important;
+}
+.ico-refresh
+{
+    background-image: url("../icons/refresh.png") !important;
+}
+.ico-rename
+{
+    background: url("../icons/all_16_16_vertical.png") no-repeat scroll 0 -280px transparent !important;
+}
+.ico-restore
+{
+    background-image: url("../icons/undo.png") !important;
+}
+.ico-revisions
+{
+    background-image: url("../icons/revisions.png") !important;
+}
+.ico-search
+{
+    background-image: url("../icons/search.png");
+}
+.ico-save
+{
+    background-image: url("../icons/save.png");
+}
+.ico-slideshow
+{
+    background-image: url("../icons/slideshow.png") !important;
+}
+.ico-sprd
+{
+    background-image: url("../icons/sprd.png") !important;
+}
+.ico-tag
+{
+    background: url("../icons/all_16_16_vertical.png") no-repeat scroll 0 -219px transparent !important;
+}
+.ico-task
+{
+    background-image: url("../icons/tasks.png") !important;
+}
+.ico-task-high-priority
+{
+    background: url("../icons/all_16_16_vertical.png") no-repeat scroll 0 -199px transparent !important;
+}
+.ico-task-low-priority
+{
+    background-image: url("../icons/task-low.png") !important;
+}
+.ico-time
+{
+    background: url("../icons/all_16_16_vertical.png") no-repeat scroll 0 -160px transparent !important;
+}
+.ico-Time
+{
+    background: url("../icons/all_16_16_vertical.png") no-repeat scroll 0 -160px transparent !important;
+}
+.ico-timeslot
+{
+    background: url("../icons/all_16_16_vertical.png") no-repeat scroll 0 -160px transparent !important;
+}
+.ico-time-layout
+{
+    background: url("../icons/all_16_16_vertical.png") no-repeat scroll 0 -157px transparent !important;
+}
+.ico-time-pause
+{
+    background-image: url("../icons/time_pause.png") !important;
+}
+.ico-time-play
+{
+    background-image: url("../icons/time_play.png") !important;
+}
+.ico-time-stop
+{
+    background-image: url("../icons/time_stop.png") !important;
+}
+.ico-trash
+{
+    background: url("../icons/all_16_16_vertical.png") no-repeat scroll 0 -138px transparent !important;
+}
+.ico-undo
+{
+    background-image: url("../icons/undo.png") !important;
+}
+.ico-unlocked
+{
+    background-image: url("../icons/unlocked.png") !important;
+}
+.ico-upload
+{
+    background: url("../icons/all_16_16_vertical.png") no-repeat scroll 0 -120px transparent !important;
+}
+.ico-view_options
+{
+    background-image: url("../icons/view.png") !important;
+}
+.ico-history
+{
+    background-image: url("../icons/history.png") !important;
+}
+.ico-view-as-dashboard
+{
+    background-image: url("../icons/view_as_db.png") !important;
+}
+
+.ico-project, .ico-workspace
+{
+    background-image: url("../icons/workspace.png") !important;
+}
+
+.ico-today
+{
+    background-image: url("../icons/today.png") !important;
+}
+.ico-prevmonth
+{
+    background-image: url("../icons/prevmonth.png") !important;
+}
+.ico-nextmonth
+{
+    background-image: url("../icons/nextmonth.png") !important;
+}
+.ico-phone
+{
+    background-image: url("../icons/phone.png") !important;
+}
+.ico-fax
+{
+    background-image: url("../icons/fax.png") !important;
+}
+.ico-template-task
+{
+    background-image: url("../icons/tasks.png") !important;
+}
+.ico-template-milestone
+{
+    background-image: url("../icons/milestone.png") !important;
+}
+.ico-print
+{
+    background-image: url("../icons/print.png") !important;
+}
+.ico-sort-alphabetical
+{
+    background-image: url("../icons/sort_abc.png") !important;
+}
+.ico-sort-count
+{
+    background: url("../icons/all_16_16_vertical.png") no-repeat scroll 0 -240px transparent !important;
+}
+.ico-sort-asc
+{
+    background-image: url("../icons/sort_asc.png") !important;
+}
+.ico-sort-desc
+{
+    background-image: url("../icons/sort_desc.png") !important;
+}
+.ico-colorremember
+{
+    background-image: url("../icons/remember.png") !important;
+}
+.ico-zip-extract
+{
+    background-image: url("../icons/zip-extract.png") !important;
+}
+.ico-zip-add
+{
+    background-image: url("../icons/zip-add.png") !important;
+}
+.ico-share
+{
+    background-image: url("../icons/share.png") !important;
+}
+.ico-up
+{
+    background-image: url("../icons/up.png");
+}
+.ico-down
+{
+    background-image: url("../icons/down.png");
+}
+.ico-rss
+{
+    background-image: url("../icons/rss.png") !important;
+}
+.ico-open-link
+{
+    background-image: url("../icons/openlink.png") !important;
+}
+.ico-expand
+{
+    background-image: url("../icons/expand.png") !important;
+}
+.ico-collapse
+{
+    background-image: url("../icons/collapse.png") !important;
+}
+.ico-querybuilder
+{
+    background-image: url("../icons/querybuilder.png") !important;
+}
+
+.x-action-col-cell img.ux-rating-icon
+{
+    height: 16px;
+    width: 16px;
+    background-image: url(../images/rating.gif);
+}
+.x-action-col-cell img.ux-rating-icon-on
+{
+    background-position: 0 -32px;
+}
+.x-action-col-cell img.ux-rating-icon-hover
+{
+    background-position: 0 -32px;
+}
+
+.x-form-field-wrap .x-form-my-trigger
+{
+    background-image: url("../images/search-trigger.gif");
+    border-bottom-color: #B5B8C8;
+}
+
+.databox li
+{
+    float: left;
+    margin: 4 0 3 0;
+    width: 50%;
+}
+
+.databox .first
+{
+    margin-left: 12px;
+}
+
+.databox .second
+{
+    margin-left: 60px;
+    text-decoration: none;
+}
+
+.menuFastAdd
+{
+    background: url("../images/fast-add.png") no-repeat scroll 0 0 transparent !important;
+}
+
+.icon-red
+{
+    background-image: url('../icons/del.png');
+    background-repeat: no-repeat;
+}
+
+.icon-green
+{
+    background-image: url('../icons/complete.png');
+    background-repeat: no-repeat;
+}
+
+.buttons-top .x-btn-mc .x-btn-text
+{
+    font-size: 13px;
+}
+
+.x-panel-body-noheader, .x-panel-mc .x-panel-body
+{
+    border-color: #FFF;
+}
+
+.unapproved
+{
+    background-color: #ccc;
+}
+
+.red_text
+{
+    color: red;
+}
+.starRate
+{
+    position: relative;
+    margin: 0px;
+    overflow: hidden;
+    zoom: 1;
+    display: block;
+}
+.starRate ul
+{
+    width: 160px;
+    margin: 0;
+    padding: 0;
+}
+.starRate li
+{
+    display: inline;
+    list-style: none;
+}
+.starRate a, .starRate b
+{
+    background: url(../images/star_rate.gif) left top repeat-x;
+}
+.starRate a
+{
+    float: right;
+    margin: 0 80px 0 -144px;
+    width: 80px;
+    height: 16px;
+    background-position: left 16px;
+    color: #000;
+    text-decoration: none;
+}
+.starRate a:active, .starRate a:focus, .starRate a:hover
+{
+    background-position: left -32px;
+}
+.starRate b
+{
+    position: absolute;
+    z-index: -1;
+    width: 80px;
+    height: 16px;
+    background-position: left -16px;
+}
+.starRate div b
+{
+    left: 0px;
+    bottom: 0px;
+    background-position: left top;
+}
+.starRate a span
+{
+    position: absolute;
+    left: -300px;
+}
+.starRate a:active span, .starRate a:focus span, .starRate a:hover span
+{
+    left: 90px;
+    width: 100%;
+}
+
+.x-edit-custom
+{
+    background-image: none !important;
+    padding-left: 0px !important;
+}
+
+.x-treegrid-text
+{
+    color: #000;
+}
+
+.x-treegrid-text a
+{
+    text-decoration: underline;
+}
+
+.x-treegrid .x-tree-node-el
+{
+    height: 80px;
+}
+
+.email-FetchMenuButton-icon
+{
+    background-image: url(../icons/actions/groupware-email-fetch.png) !important;
+}
+
+.email-newButton-icon
+{
+    background-image: url(../icons/actions/groupware-email-mailnew.png) !important;
+}
+
+.email-replyButton-icon
+{
+    background-image: url(../icons/actions/groupware-email-mailreply.png) !important;
+}
+
+.email-replyAllButton-icon
+{
+    background-image: url(../icons/actions/groupware-email-mailreplyall.png) !important;
+}
+
+.email-forwardButton-icon
+{
+    background-image: url(../icons/actions/groupware-email-mailforward.png) !important;
+}
+
+.email-deleteButton-icon
+{
+    background-image: url(../icons/actions/groupware-email-delete.png) !important;
+}
+
+.email-spamButton-icon
+{
+    background-image: url(../icons/actions/groupware-email-markasspam.png) !important;
+}
+
+.x-btn-mc em.x-btn-arrow
+{
+    background-image: none;
+}
+
+.ico-inbox
+{
+    background-image: url("../icons/emails/inbox.png") !important;
+}
+
+.ico-drafts
+{
+    background-image: url("../icons/emails/drafts.png") !important;
+}
+
+.ico-sentitems
+{
+    background-image: url("../icons/emails/sentitems.png") !important;
+}
+
+.ico-junkemail
+{
+    background-image: url("../icons/emails/junkemail.gif") !important;
+}
+
+.ico-deleted
+{
+    background-image: url("../icons/emails/deleted.gif") !important;
+}
+
+.readmailinfo
+{
+    background: none repeat scroll 0 0 #E6E6E6;
+    border-bottom: 1px solid #AAC1DE;
+    border-top: 1px solid #FFFFFF;
+}
+.txt_left
+{
+    text-align: left;
+}
+.addrtitle
+{
+    color: #798699;
+    font-family: "lucida Grande" ,Verdana;
+    font-size: 12px;
+}
+
+.sub_title
+{
+    font: bold 14px "lucida Grande" ,Verdana;
+}
+.tcolor
+{
+    color: #7F7F7F;
+    font: 12px Verdana;
+}
+.grn
+{
+    font-family: "lucida Grande" ,Verdana;
+    font-size: 12px;
+}
+#mailContentContainer .txt
+{
+    height: auto;
+}
+
+.tcolor {
+    color: #7F7F7F;
+    font: 12px Verdana;
+}
+
