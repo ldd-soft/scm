@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="SupplyChainManager">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.5, 8.5" name="SupplyChainManager">
   <DataContextMoniker Name="/SupplyChainManagerDataContext" />
   <nestedChildShapes>
     <classShape Id="03fdda63-d3c7-4240-b765-da237b0d93c9" absoluteBounds="3.625, 1, 2, 4.9893619791666657">
@@ -12,6 +12,12 @@
       <DataClassMoniker Name="/SupplyChainManagerDataContext/Module" />
       <nestedChildShapes>
         <elementListCompartment Id="0ca7cc37-d28f-47b2-9dc6-0248e3be8921" absoluteBounds="6.515, 1.71, 1.9700000000000002, 1.2255859375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ded2e81d-fc61-42cf-bb2d-2301c3180d24" absoluteBounds="9.25, 1.25, 2, 1.4483463541666668">
+      <DataClassMoniker Name="/SupplyChainManagerDataContext/Client" />
+      <nestedChildShapes>
+        <elementListCompartment Id="852879f8-6e3d-4e56-af66-70216a9eb98a" absoluteBounds="9.265, 1.71, 1.9700000000000002, 0.88834635416666674" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

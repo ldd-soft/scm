@@ -71,8 +71,10 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Daos\ModuleDao.cs" />
     <Compile Include="Daos\UserDao.cs" />
+    <Compile Include="Daos\ClientDao.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1499,6 +1501,10 @@
     <Content Include="Scripts\views\system\user\edit.js" />
     <Content Include="Scripts\views\system\user\user.js" />
     <Content Include="Scripts\views\system\user\index.js" />
+    <Content Include="Scripts\views\system\client\add.js" />
+    <Content Include="Scripts\views\system\client\edit.js" />
+    <Content Include="Scripts\views\system\client\index.js" />
+    <Content Include="Scripts\views\system\client\client.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
