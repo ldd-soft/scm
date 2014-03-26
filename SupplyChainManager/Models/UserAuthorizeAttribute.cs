@@ -43,10 +43,7 @@ namespace SupplyChainManager.Models
             string action = filterContext.RouteData.Values["action"].ToString();
             if (filterContext.HttpContext.Session["user"] == null)
             {
-                filterContext.Result = new ViewResult
-                {
-                    ViewName = "~/Views/Shared/Unauthorized.cshtml"
-                };
+                filterContext.Result = new RedirectResult("/Account/Login");
             }
 
         }

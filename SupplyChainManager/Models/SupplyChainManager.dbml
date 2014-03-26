@@ -47,4 +47,75 @@
       <Column Name="Contact" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Supply" Member="Supply">
+    <Type Name="Supply">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SupplyName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Tel" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Contact" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Item" Member="Item">
+    <Type Name="Item">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ItemCode" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="ItemName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="ItemType" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="SubTitle" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Brand" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Specification" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="BarCode" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="SKU" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Color" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Style" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Long" Type="System.Decimal" DbType="Decimal(9,2)" CanBeNull="true" />
+      <Column Name="Wide" Type="System.Decimal" DbType="Decimal(9,2)" CanBeNull="true" />
+      <Column Name="High" Type="System.Decimal" DbType="Decimal(9,2)" CanBeNull="true" />
+      <Column Name="NetWeight" Type="System.Decimal" DbType="Decimal(9,2)" CanBeNull="true" />
+      <Column Name="MeasureUnit" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CartonSpec" Type="System.Decimal" DbType="Decimal(9,2)" CanBeNull="true" />
+      <Column Name="Producer" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Packages" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Guarantee" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsGuarantee" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="BatchType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Dictionary" Member="Dictionary">
+    <Type Name="Dictionary">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Module" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Field" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Options" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="ParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ClientItem" Member="ClientItem">
+    <Type Name="ClientItem">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ClientId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ClientName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="MarketPrice" Type="System.Decimal" DbType="Decimal(9,2)" CanBeNull="true" />
+      <Column Name="CostPrice" Type="System.Decimal" DbType="Decimal(9,2)" CanBeNull="true" />
+      <Column Name="SalePrice" Type="System.Decimal" DbType="Decimal(9,2)" CanBeNull="true" />
+      <Column Name="ReturnDays" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ExchangeDays" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RepairDays" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MinOrderCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SaleType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PrepareDays" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SupplyType" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="TaxRate" Type="System.Decimal" DbType="Decimal(9,2)" CanBeNull="true" />
+      <Column Name="IsOrder" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="SupplyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SupplyName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

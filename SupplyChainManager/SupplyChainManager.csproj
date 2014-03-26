@@ -69,12 +69,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DictionaryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\SupplyController.cs" />
+    <Compile Include="Controllers\ItemController.cs" />
+    <Compile Include="Controllers\ClientItemController.cs" />
+    <Compile Include="Daos\DictionaryDao.cs" />
     <Compile Include="Daos\ModuleDao.cs" />
     <Compile Include="Daos\UserDao.cs" />
     <Compile Include="Daos\ClientDao.cs" />
+    <Compile Include="Daos\SupplyDao.cs" />
+    <Compile Include="Daos\ItemDao.cs" />
+    <Compile Include="Daos\ClientItemDao.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -325,6 +333,9 @@
     <Content Include="Content\images\rating.gif" />
     <Content Include="Content\images\search-trigger.gif" />
     <Content Include="Content\images\star_rate.gif" />
+    <Content Include="DbScripts\dictionary_data.sql" />
+    <Content Include="DbScripts\insert_module.sql" />
+    <Content Include="DbScripts\scm_db.sql" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\help\function.js" />
     <Content Include="Scripts\help\scriptManager.js" />
@@ -1497,6 +1508,13 @@
     <Content Include="Scripts\lib\plugins\queryBuilder\queryBuilder.js" />
     <Content Include="Scripts\lib\plugins\queryBuilder\queryBuilderForm.js" />
     <Content Include="Scripts\views\desktop\index.js" />
+    <Content Include="Scripts\views\system\clientitem\clientitem.js" />
+    <Content Include="Scripts\views\system\client\select.js" />
+    <Content Include="Scripts\views\system\item\add.js" />
+    <Content Include="Scripts\views\system\item\edit.js" />
+    <Content Include="Scripts\views\system\item\item.js" />
+    <Content Include="Scripts\views\system\item\index.js" />
+    <Content Include="Scripts\views\system\supply\select.js" />
     <Content Include="Scripts\views\system\user\add.js" />
     <Content Include="Scripts\views\system\user\edit.js" />
     <Content Include="Scripts\views\system\user\user.js" />
@@ -1505,6 +1523,13 @@
     <Content Include="Scripts\views\system\client\edit.js" />
     <Content Include="Scripts\views\system\client\index.js" />
     <Content Include="Scripts\views\system\client\client.js" />
+    <Content Include="Scripts\views\system\supply\add.js" />
+    <Content Include="Scripts\views\system\supply\supply.js" />
+    <Content Include="Scripts\views\system\supply\edit.js" />
+    <Content Include="Scripts\views\system\supply\index.js" />
+    <Content Include="Scripts\views\system\clientitem\add.js" />
+    <Content Include="Scripts\views\system\clientitem\edit.js" />
+    <Content Include="Scripts\views\system\clientitem\index.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

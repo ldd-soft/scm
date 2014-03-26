@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.5, 8.5" name="SupplyChainManager">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 14, 8.875" name="SupplyChainManager">
   <DataContextMoniker Name="/SupplyChainManagerDataContext" />
   <nestedChildShapes>
     <classShape Id="03fdda63-d3c7-4240-b765-da237b0d93c9" absoluteBounds="3.625, 1, 2, 4.9893619791666657">
@@ -18,6 +18,30 @@
       <DataClassMoniker Name="/SupplyChainManagerDataContext/Client" />
       <nestedChildShapes>
         <elementListCompartment Id="852879f8-6e3d-4e56-af66-70216a9eb98a" absoluteBounds="9.265, 1.71, 1.9700000000000002, 0.88834635416666674" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b6ccf725-5bbc-4d98-9390-21660e6cad4f" absoluteBounds="11.75, 1.25, 2, 1.4483463541666668">
+      <DataClassMoniker Name="/SupplyChainManagerDataContext/Supply" />
+      <nestedChildShapes>
+        <elementListCompartment Id="25fc54f5-329b-4438-9db6-bb548adc8a6f" absoluteBounds="11.765, 1.71, 1.9700000000000002, 0.88834635416666674" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1eeb7afb-3ab7-4cae-945d-503662ccaf5f" absoluteBounds="6.5, 3.625, 2, 4.9893619791666657">
+      <DataClassMoniker Name="/SupplyChainManagerDataContext/Item" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d76d4057-c552-40b5-9587-969bd660e26c" absoluteBounds="6.515, 4.085, 1.9700000000000002, 4.4293619791666661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8a839dd1-e3f3-442d-8c1c-bc11be3715eb" absoluteBounds="11.75, 3.125, 2, 1.6169661458333331">
+      <DataClassMoniker Name="/SupplyChainManagerDataContext/Dictionary" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2825b6f7-839d-4b21-acd1-cd62fc247a63" absoluteBounds="11.765, 3.585, 1.9700000000000002, 1.0569661458333333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ade0178d-ea2b-47b0-a2f7-6bb872aa25dc" absoluteBounds="9.375, 3.625, 2, 4.3148828125">
+      <DataClassMoniker Name="/SupplyChainManagerDataContext/ClientItem" />
+      <nestedChildShapes>
+        <elementListCompartment Id="568b6330-9581-4bcd-95e9-8f41f4fb2c93" absoluteBounds="9.39, 4.085, 1.9700000000000002, 3.7548828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

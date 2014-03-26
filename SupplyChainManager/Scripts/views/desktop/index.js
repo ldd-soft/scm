@@ -4,7 +4,6 @@ var currentId, newId;
 var currentRec, currentTable;
 var currentTab;
 var parentId;
-var client_record, contact_record, order_record, candidate_record, info_record;
 var action;
 var parentDs;
 var moduleList = {};
