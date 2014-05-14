@@ -342,6 +342,7 @@
     <Content Include="DbScripts\dictionary_data.sql" />
     <Content Include="DbScripts\insert_module.sql" />
     <Content Include="DbScripts\scm_db.sql" />
+    <Content Include="DbScripts\modify_db.sql" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\help\function.js" />
     <Content Include="Scripts\help\scriptManager.js" />
