@@ -30,11 +30,26 @@ namespace SupplyChainManager.Daos
                             string str1 = param.Value;
                             searchPredicate = searchPredicate.And(d => d.Field.ToLower().Contains(str1.ToLower()));
                             break;
+                        case "table_name":
+                            string table_name = param.Value;
+                            searchPredicate = searchPredicate.And(d => d.TableName == table_name);
+                            break;
+                        case "record_id":
+                            int record_id = int.Parse(param.Value);
+                            searchPredicate = searchPredicate.And(d => d.RecordId == record_id);
+                            break;
                         default:
                             break;
                     }
                 }
-                result = db.Dictionary.Where(searchPredicate).Select(d => new Options() { Id = d.ParentId.Value,  Key = d.Options, Value = d.Options}).ToList();
+                if (page.Params.ContainsKey("table_name"))
+                {
+                    result = db.Dictionary.Where(searchPredicate).Select(d => new Options() { Id = d.OrderNo.Value, Key = d.Options, Value = d.Field }).ToList();
+                }
+                else
+                {
+                    result = db.Dictionary.Where(searchPredicate).Select(d => new Options() { Id = d.OrderNo.Value, Key = d.Options, Value = d.Options }).ToList();
+                }
             }
 
             count = result.Count;

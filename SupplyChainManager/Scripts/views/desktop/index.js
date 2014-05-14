@@ -1,4 +1,4 @@
-var role;
+﻿var role;
 var root, tree;
 var currentId, newId;
 var currentRec, currentTable;
@@ -61,7 +61,7 @@ var loadModule = function (name, title, url) {
     var cardPanel = Ext.getCmp('content-panel');
     newId = name + '-panel';
     if (!cardPanel.findById(newId)) {
-        moduleList[name] = {name: name, title: title, url: url};
+        moduleList[name] = { name: name, title: title, url: url };
         loadScript(name, title, url);
         return;
     }
@@ -108,8 +108,8 @@ var loadScript = function (name, title, url) {
     });
 };
 
-var initData = function () {   
-   
+var initData = function () {
+
 };
 var layout;
 var buildLayout = function () {
@@ -117,6 +117,15 @@ var buildLayout = function () {
     var tb = new Ext.Toolbar({ cls: 'menuBox' });
 
     tb.add({ xtype: 'displayfield', width: 180, value: '' });
+
+    tb.add({
+        text: '订单管理',
+        width: 150,
+        handler: function () {
+            parentId = 'Home';
+            loadModule('Order', '订单管理', 'Order/Index');
+        }
+    });
 
     root = new Ext.tree.AsyncTreeNode({
         text: 'root'

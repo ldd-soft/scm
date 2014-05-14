@@ -91,7 +91,12 @@ var dateFormat = function (v) {
 }
 
 var underline = function (v) {
-    return '<a href="#">' + v + '</a>'
+    if (v) {
+        return '<a href="#">' + v + '</a>'
+    }
+    else {
+        return '';
+    }
 }
 
 function renderFloat(val) {
@@ -159,4 +164,56 @@ Ext.apply(Ext.form.VTypes, {
         */
         return true;
     }
+});
+
+Ext.override(Ext.Component, {
+    findParentBy: function (fn) {
+        for (var p = this.ownerCt; (p != null) && !fn(p); p = p.ownerCt);
+        return p;
+    },
+
+    findParentByType: function (xtype) {
+        return typeof xtype == 'function' ?
+            this.findParentBy(function (p) {
+                return p.constructor === xtype;
+            }) :
+            this.findParentBy(function (p) {
+                return p.constructor.xtype === xtype;
+            });
+    }
+});
+
+Ext.override(Ext.form.FormPanel, {
+    keys: [{
+        key: Ext.EventObject.ENTER,
+        scope: this,
+        handler: function (o, oEvent, e) {
+            var field = Ext.getCmp(oEvent.target.id);
+            var form = field.findParentByType('form').getForm();
+            var src = oEvent.srcElement ? oEvent.srcElement : oEvent.target;
+            if (oEvent.keyCode == 13 && src.type != 'button' && src.type != 'submit' && src.type != 'reset' && src.type != 'textarea' && src.type != '')
+                if (Ext.isIE) {
+                    window.event.keyCode = Ext.EventObject.TAB;
+                } else {
+                    var b = false;
+                    Ext.iterate(form.getValues(), function (key, value) {
+                        if (b) {
+                            var f = form.findField(key);
+                            if (f.xtype === 'hidden' || f.xtype === 'displayfield') {
+                                b = true;
+                            } else {
+                                f.focus();
+                                b = false;
+                            }
+                        }
+                        if (src.name == '') {
+                            src.name = Ext.getCmp(src.id).getName();
+                        }
+                        if (key === src.name) {
+                            b = true;
+                        }
+                    }, this);
+                }
+        }
+    }]
 });

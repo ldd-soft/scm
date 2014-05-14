@@ -1,4 +1,4 @@
-﻿SelectSupply = function (config) {
+﻿SelectItem = function (config) {
     var config = config || {};
     var ds, grid;
     var pageSize = 20;
@@ -7,13 +7,13 @@
 
     var buildGrid = function () {
         ds = new Ext.data.Store({
-            url: root_path + 'Supply/Index',
+            url: root_path + 'Item/Index',
             reader: new Ext.data.JsonReader({
                 totalProperty: 'TotalProperty',
                 successProperty: 'Success',
                 id: 'Id',
                 root: 'Root',
-                fields: ['Id', 'SupplyName', 'Tel', 'Contact']
+                fields: item_fields
             }),
             listeners: {
                 'load': function (store, rs) {
@@ -47,9 +47,9 @@
             columns: [
                 multiSelect
             , { header: 'id', width: 50, dataIndex: 'Id', sortable: true }
-            , { header: '供应商名称', width: 350, dataIndex: 'SupplyName', sortable: true, renderer: underline }
-            , { header: '联系电话', width: 200, dataIndex: 'Tel', sortable: true }
-            , { header: '联系人', width: 200, dataIndex: 'Contact', sortable: true }
+            , { header: '商品编码', width: 120, dataIndex: 'ItemCode', sortable: true, renderer: underline }
+            , { header: '商品名称', width: 120, dataIndex: 'ItemName', sortable: true }
+            , { header: '商品类别', width: 120, dataIndex: 'ItemType', sortable: true }
             ],
             tbar: [
                 '快速查找：',

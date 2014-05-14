@@ -76,6 +76,9 @@
     <Compile Include="Controllers\SupplyController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ClientItemController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\PurchaseController.cs" />
+    <Compile Include="Controllers\SaleController.cs" />
     <Compile Include="Daos\DictionaryDao.cs" />
     <Compile Include="Daos\ModuleDao.cs" />
     <Compile Include="Daos\UserDao.cs" />
@@ -83,6 +86,9 @@
     <Compile Include="Daos\SupplyDao.cs" />
     <Compile Include="Daos\ItemDao.cs" />
     <Compile Include="Daos\ClientItemDao.cs" />
+    <Compile Include="Daos\OrderDao.cs" />
+    <Compile Include="Daos\PurchaseDao.cs" />
+    <Compile Include="Daos\SaleDao.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1508,12 +1514,19 @@
     <Content Include="Scripts\lib\plugins\queryBuilder\queryBuilder.js" />
     <Content Include="Scripts\lib\plugins\queryBuilder\queryBuilderForm.js" />
     <Content Include="Scripts\views\desktop\index.js" />
+    <Content Include="Scripts\views\order\add.js" />
+    <Content Include="Scripts\views\order\data.js" />
+    <Content Include="Scripts\views\order\edit.js" />
+    <Content Include="Scripts\views\order\index.js" />
+    <Content Include="Scripts\views\order\order.js" />
     <Content Include="Scripts\views\system\clientitem\clientitem.js" />
     <Content Include="Scripts\views\system\client\select.js" />
     <Content Include="Scripts\views\system\item\add.js" />
     <Content Include="Scripts\views\system\item\edit.js" />
     <Content Include="Scripts\views\system\item\item.js" />
     <Content Include="Scripts\views\system\item\index.js" />
+    <Content Include="Scripts\views\system\item\select.js" />
+    <Content Include="Scripts\views\system\public\data.js" />
     <Content Include="Scripts\views\system\supply\select.js" />
     <Content Include="Scripts\views\system\user\add.js" />
     <Content Include="Scripts\views\system\user\edit.js" />

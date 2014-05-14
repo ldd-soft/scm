@@ -84,15 +84,6 @@
       <Column Name="CreatedName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Dictionary" Member="Dictionary">
-    <Type Name="Dictionary">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Module" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Field" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="Options" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="ParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.ClientItem" Member="ClientItem">
     <Type Name="ClientItem">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -116,6 +107,94 @@
       <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="CreatedId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="CreatedName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Dictionary" Member="Dictionary">
+    <Type Name="Dictionary">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Module" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Field" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Options" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="OrderNo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TableName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="RecordId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Orders" Member="Orders">
+    <Type Name="Orders">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SupplyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SupplyName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="ClientId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ClientName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="DateOrder" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="SupplyType" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="AddId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AddName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="DateAdded" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CheckId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CheckName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="DateChecked" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ApproveId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ApproveName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="DateApproved" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Association Name="Orders_Sale" Member="Sale" ThisKey="Id" OtherKey="OrderId" Type="Sale" />
+      <Association Name="Orders_Purchase" Member="Purchase" ThisKey="Id" OtherKey="OrderId" Type="Purchase" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Sale" Member="Sale">
+    <Type Name="Sale">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="OrderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PoNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="StoreId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StoreName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="Contact" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Tel" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ItemName" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="ItemNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Barcode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Spec" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Unit" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SalePrice" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
+      <Column Name="SaleDiscount" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
+      <Column Name="SaleAmount" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
+      <Column Name="QuantitySent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AmountSent" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
+      <Column Name="QuantityMiss" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AmountMiss" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
+      <Column Name="MissProcess" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Association Name="Orders_Sale" Member="Orders" AccessModifier="Internal" ThisKey="OrderId" OtherKey="Id" Type="Orders" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Purchase" Member="Purchase">
+    <Type Name="Purchase">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PoNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ItemName" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="ItemNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Barcode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Spec" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Unit" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PurchasePrice" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
+      <Column Name="PurchaseDiscount" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
+      <Column Name="PurchaseAmount" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
+      <Column Name="QuantityReceived" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AmountReceived" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
+      <Column Name="QuantityMiss" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AmountMiss" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
+      <Column Name="MissProcess" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Association Name="Orders_Purchase" Member="Orders" AccessModifier="Internal" ThisKey="OrderId" OtherKey="Id" Type="Orders" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

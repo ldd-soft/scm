@@ -1,0 +1,1 @@
+﻿var item_fields = ['Id', 'ItemCode', 'ItemName', 'ItemType', 'SubTitle', 'Brand', 'Specification', 'BarCode', 'SKU', 'Color', 'Style', 'Long', 'Wide', 'High', 'NetWeight', 'MeasureUnit', 'CartonSpec', 'Producer', 'Packages', 'Guarantee', 'IsGuarantee', 'BatchType', 'DateCreated', 'CreatedId', 'CreatedName'];

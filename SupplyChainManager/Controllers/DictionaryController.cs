@@ -18,13 +18,16 @@ namespace SupplyChainManager.Controllers
         {
             Page<Options> page = new Page<Options>();
             page.Params = new Dictionary<string, string>();
-            if (!string.IsNullOrEmpty(formCollection["module"]))
-            {
-                page.Params.Add("module", formCollection["module"]);
-            }
             if (!string.IsNullOrEmpty(formCollection["field"]))
             {
                 page.Params.Add("field", formCollection["field"]);
+                page.Params.Add("module", formCollection["module"]);
+            }
+            if (!string.IsNullOrEmpty(formCollection["record_id"]))
+            {
+                page.Params.Add("module", formCollection["module"]);
+                page.Params.Add("table_name", formCollection["table_name"]);
+                page.Params.Add("record_id", formCollection["record_id"]);
             }
 
             int count = 0;
