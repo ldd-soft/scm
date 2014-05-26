@@ -26,6 +26,10 @@ namespace SupplyChainManager.Daos
                             string query = param.Value;
                             searchPredicate = searchPredicate.And(s => s.SupplyName.Contains(query) || s.Tel.Contains(query) || s.Contact.Contains(query));
                             break;
+                        case "brand":
+                            string brand = param.Value;
+                            searchPredicate = searchPredicate.And(s => s.Brand.Contains(brand));
+                            break;
                     }
                 }
                 result = db.Supply.Where(searchPredicate).ToList();

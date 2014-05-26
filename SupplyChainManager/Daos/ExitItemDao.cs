@@ -5,53 +5,59 @@ using System.Web;
 using SupplyChainManager.Models;
 using System.Configuration;
 using System.Linq.Expressions;
-using System.Data.Linq;
 
 namespace SupplyChainManager.Daos
 {
-    public class PurchaseDao
+    public class ExitItemDao
     {
         private SupplyChainManagerDataContext db = new SupplyChainManagerDataContext();
 
-        public List<Purchase> FindByPage(Page<Purchase> page, ref int count)
+        public List<ExitItem> FindByPage(Page<ExitItem> page, ref int count)
         {
-            List<Purchase> result = new List<Purchase>();
+            List<ExitItem> result = new List<ExitItem>();
             if (page.Params.Count > 0)
             {
-                Expression<Func<Purchase, bool>> searchPredicate = PredicateExtensions.True<Purchase>();
+                Expression<Func<ExitItem, bool>> searchPredicate = PredicateExtensions.True<ExitItem>();
                 foreach (var param in page.Params)
                 {
                     switch (param.Key)
                     {
                         case "query":
                             string query = param.Value;
-                            searchPredicate = searchPredicate.And(s => s.SupplyName.Contains(query) || s.Status.Contains(query));
+                            searchPredicate = searchPredicate.And(s => s.ItemName.Contains(query));
+                            break;
+                        case "exit_id":
+                            int exit_id = int.Parse(param.Value);
+                            searchPredicate = searchPredicate.And(s => s.ExitId == exit_id);
                             break;
                     }
                 }
-                result = db.Purchase.Where(searchPredicate).ToList();
+                result = db.ExitItem.Where(searchPredicate).ToList();
+            }
+            count = result.Count;
+            if (page.Params.ContainsKey("exit_id"))
+            {
+                result = result.OrderBy(o => o.Id).Skip(page.Start).Take(page.Limit).ToList();
             }
             else
             {
-                result = db.Purchase.ToList();
+                result = result.OrderByDescending(o => o.Id).Skip(page.Start).Take(page.Limit).ToList();
             }
-            count = result.Count;
-            result = result.OrderByDescending(o => o.Id).Skip(page.Start).Take(page.Limit).ToList();
             return result;
         }
 
-        public int Create(Purchase purchase)
+        public int Create(ExitItem exitItem)
         {
-            db.Purchase.InsertOnSubmit(purchase);
+            db.ExitItem.InsertOnSubmit(exitItem);
             db.SubmitChanges();
-            return purchase.Id;
+            return exitItem.Id;
         }
 
         public bool Delete(int id)
         {
             bool result = false;
-            Purchase purchase = db.Purchase.Where(u => u.Id == id).FirstOrDefault();
-            db.Purchase.DeleteOnSubmit(purchase);
+            ExitItem exitItem = db.ExitItem.Where(u => u.Id == id).FirstOrDefault();
+            db.ExitItem.DeleteOnSubmit(exitItem);
             try
             {
                 db.SubmitChanges();
@@ -73,14 +79,10 @@ namespace SupplyChainManager.Daos
             return result;
         }
 
-        public Purchase FindById(int id)
+        public ExitItem FindById(int id)
         {
-            return db.Purchase.SingleOrDefault(c => c.Id == id);
+            return db.ExitItem.SingleOrDefault(c => c.Id == id);
         }
 
-        internal void DeleteItems(EntitySet<PurchaseItem> items)
-        {
-            db.PurchaseItem.DeleteAllOnSubmit(items);
-        }
     }
 }

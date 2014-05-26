@@ -2,6 +2,7 @@
 var root, tree;
 var currentId, newId;
 var currentRec, currentTable;
+var currentItemConfig;
 var currentTab;
 var parentId;
 var action;
@@ -117,15 +118,6 @@ var buildLayout = function () {
     var tb = new Ext.Toolbar({ cls: 'menuBox' });
 
     tb.add({ xtype: 'displayfield', width: 180, value: '' });
-
-    tb.add({
-        text: '订单管理',
-        width: 150,
-        handler: function () {
-            parentId = 'Home';
-            loadModule('Order', '订单管理', 'Order/Index');
-        }
-    });
 
     root = new Ext.tree.AsyncTreeNode({
         text: 'root'

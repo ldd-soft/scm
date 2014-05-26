@@ -5,6 +5,7 @@ using System.Web;
 using SupplyChainManager.Models;
 using System.Configuration;
 using System.Linq.Expressions;
+using System.Data.Linq;
 
 namespace SupplyChainManager.Daos
 {
@@ -22,9 +23,9 @@ namespace SupplyChainManager.Daos
                 {
                     switch (param.Key)
                     {
-                        case "order_id":
-                            int order_id = int.Parse(param.Value);
-                            searchPredicate = searchPredicate.And(s => s.OrderId == order_id);
+                        case "query":
+                            string query = param.Value;
+                            searchPredicate = searchPredicate.And(s => s.ClientName.Contains(query) || s.Status.Contains(query));
                             break;
                     }
                 }
@@ -77,5 +78,9 @@ namespace SupplyChainManager.Daos
             return db.Sale.SingleOrDefault(c => c.Id == id);
         }
 
+        internal void DeleteItems(EntitySet<SaleItem> items)
+        {
+            db.SaleItem.DeleteAllOnSubmit(items);
+        }
     }
 }

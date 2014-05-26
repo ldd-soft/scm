@@ -24,7 +24,11 @@ namespace SupplyChainManager.Daos
                     {
                         case "query":
                             string query = param.Value;
-                            searchPredicate = searchPredicate.And(s => s.ItemName.Contains(query) || s.ItemCode.Contains(query) || s.BarCode.Contains(query));
+                            searchPredicate = searchPredicate.And(s => s.ItemName.Contains(query) || s.Code.Contains(query) || s.Barcode.Contains(query));
+                            break;
+                        case "brand":
+                            string brand = param.Value;
+                            searchPredicate = searchPredicate.And(s => s.Brand == brand);
                             break;
                     }
                 }
@@ -77,5 +81,70 @@ namespace SupplyChainManager.Daos
             return db.Item.SingleOrDefault(c => c.Id == id);
         }
 
+        public List<ItemStockView> ListByStock(Page<ItemStockView> page, ref int count)
+        {
+            List<ItemStockView> result = new List<ItemStockView>();
+            if (page.Params.Count > 0)
+            {
+                Expression<Func<ItemStockView, bool>> searchPredicate = PredicateExtensions.True<ItemStockView>();
+                foreach (var param in page.Params)
+                {
+                    switch (param.Key)
+                    {
+                        case "query":
+                            string query = param.Value;
+                            searchPredicate = searchPredicate.And(s => s.ItemName.Contains(query) || s.Code.Contains(query) || s.Barcode.Contains(query));
+                            break;
+                        case "brand":
+                            string brand = param.Value;
+                            searchPredicate = searchPredicate.And(s => s.Brand == brand);
+                            break;
+                    }
+                }
+                result = db.ItemStockView.Where(searchPredicate).ToList();
+            }
+            else
+            {
+                result = db.ItemStockView.ToList();
+            }
+            count = result.Count;
+            result = result.OrderByDescending(o => o.Id).Skip(page.Start).Take(page.Limit).ToList();
+            return result;
+        }
+
+        public List<ItemBatchStockView> ListByBatchStock(Page<ItemBatchStockView> page, ref int count)
+        {
+            List<ItemBatchStockView> result = new List<ItemBatchStockView>();
+            if (page.Params.Count > 0)
+            {
+                Expression<Func<ItemBatchStockView, bool>> searchPredicate = PredicateExtensions.True<ItemBatchStockView>();
+                foreach (var param in page.Params)
+                {
+                    switch (param.Key)
+                    {
+                        case "query":
+                            string query = param.Value;
+                            searchPredicate = searchPredicate.And(s => s.ItemName.Contains(query) || s.Code.Contains(query) || s.Barcode.Contains(query));
+                            break;
+                        case "brand":
+                            string brand = param.Value;
+                            searchPredicate = searchPredicate.And(s => s.Brand == brand);
+                            break;
+                        case "store_id":
+                            int store_id = int.Parse(param.Value);
+                            searchPredicate = searchPredicate.And(s => s.StoreId == store_id);
+                            break;
+                    }
+                }
+                result = db.ItemBatchStockView.Where(searchPredicate).ToList();
+            }
+            else
+            {
+                result = db.ItemBatchStockView.ToList();
+            }
+            count = result.Count;
+            result = result.OrderByDescending(o => o.Id).Skip(page.Start).Take(page.Limit).ToList();
+            return result;
+        }
     }
 }

@@ -11,6 +11,7 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Configuration;
+using Omu.ValueInjecter;
 
 namespace SupplyChainManager.Controllers
 {
@@ -45,11 +46,15 @@ namespace SupplyChainManager.Controllers
         }
 
         // Ìí¼Ó        
-        public ContentResult Create(Purchase purchase)
+        public ContentResult Create(Purchase purchase, List<PurchaseItem> items)
         {
             string result = "{success:false,Id:0}";
             User user = (User)Session["user"];
-           
+            purchase.PurchaseItem.AddRange(items);
+            purchase.AddId = user.Id;
+            purchase.AddName = user.Name;
+            purchase.DateAdded = DateTime.Now;
+            purchase.Status = "´ýÉóºË";
             int id = dao.Create(purchase);
             if (id > 0)
             {
@@ -80,13 +85,16 @@ namespace SupplyChainManager.Controllers
 
         // ¸ü¸Ä
         [AcceptVerbs(HttpVerbs.Post)]
-        public ContentResult Edit(Purchase purchase)
+        public ContentResult Edit(Purchase purchase, List<PurchaseItem> items)
         {
             string result = "{success:false,Id:1}";
             try
             {
+                purchase.PurchaseItem.AddRange(items);
                 Purchase row = dao.FindById(purchase.Id);
-                UpdateModel(row);
+                dao.DeleteItems(row.PurchaseItem);
+                row.InjectFrom(purchase);
+
                 dao.Update();
 
                 result = "{success:true}";

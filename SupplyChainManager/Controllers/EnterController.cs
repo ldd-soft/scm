@@ -17,13 +17,13 @@ namespace SupplyChainManager.Controllers
 {
 
     [UserAuthorize]
-    public class SaleController : Controller
+    public class EnterController : Controller
     {
-        private SaleDao dao = new SaleDao();
+        private EnterDao dao = new EnterDao();
 
         public JsonNetResult Index(FormCollection formCollection)
         {
-            Page<Sale> page = new Page<Sale>();
+            Page<Enter> page = new Page<Enter>();
             page.Params = new Dictionary<string, string>();
             page.Start = formCollection["start"] == null ? 0 : int.Parse(formCollection["start"]);
             page.Limit = formCollection["limit"] == null ? 50 : int.Parse(formCollection["limit"]);
@@ -42,16 +42,15 @@ namespace SupplyChainManager.Controllers
         }
 
         // Ìí¼Ó        
-        public ContentResult Create(Sale sale, List<SaleItem> items)
+        public ContentResult Create(Enter enter, List<EnterItem> items)
         {
             string result = "{success:false,Id:0}";
             User user = (User)Session["user"];
-            sale.SaleItem.AddRange(items);
-            sale.AddId = user.Id;
-            sale.AddName = user.Name;
-            sale.DateAdded = DateTime.Now;
-            sale.Status = "´ýÉóºË";
-            int id = dao.Create(sale);
+            enter.EnterItem.AddRange(items);
+            enter.AddId = user.Id;
+            enter.AddName = user.Name;
+            enter.DateAdded = DateTime.Now;
+            int id = dao.Create(enter);
             if (id > 0)
             {
                 result = "{success:true,Id:" + id + "}";
@@ -81,15 +80,15 @@ namespace SupplyChainManager.Controllers
 
         // ¸ü¸Ä
         [AcceptVerbs(HttpVerbs.Post)]
-        public ContentResult Edit(Sale sale, List<SaleItem> items)
+        public ContentResult Edit(Enter enter, List<EnterItem> items)
         {
             string result = "{success:false,Id:1}";
             try
             {
-                sale.SaleItem.AddRange(items);
-                Sale row = dao.FindById(sale.Id);
-                dao.DeleteItems(row.SaleItem);
-                row.InjectFrom(sale);
+                enter.EnterItem.AddRange(items);
+                Enter row = dao.FindById(enter.Id);
+                dao.DeleteItems(row.EnterItem);
+                row.InjectFrom(enter);
 
                 dao.Update();
 
@@ -101,6 +100,34 @@ namespace SupplyChainManager.Controllers
             {
                 Content = result
             };
+        }
+
+        public JsonNetResult ListEnterItem(FormCollection formCollection)
+        {
+            Page<PurchaseItemView> page = new Page<PurchaseItemView>();
+            page.Params = new Dictionary<string, string>();
+            page.Start = formCollection["start"] == null ? 0 : int.Parse(formCollection["start"]);
+            page.Limit = formCollection["limit"] == null ? 100 : int.Parse(formCollection["limit"]);
+            if (!string.IsNullOrEmpty(Request["query"]))
+            {
+                page.Params.Add("query", formCollection["query"]);
+            }
+            if (!string.IsNullOrEmpty(Request["brand"]))
+            {
+                page.Params.Add("brand", formCollection["brand"]);
+            }
+
+            int count = 0;
+            var result = dao.ListEnterItem(page, ref count);
+            page.Root = result;
+            page.TotalProperty = count;
+
+            JsonNetResult jsonNetResult = new JsonNetResult();
+            jsonNetResult.Formatting = Formatting.Indented;
+            jsonNetResult.SerializerSettings.Converters.Add(new JavaScriptDateTimeConverter());
+            jsonNetResult.Data = page;
+
+            return jsonNetResult;
         }
     }
 }

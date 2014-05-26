@@ -1,20 +1,21 @@
-﻿SelectItem = function (config) {
+﻿SelectEnterItem = function (config) {
     var config = config || {};
     var ds, grid;
     var pageSize = 100;
     var win;
     var search_field;
+    var item_fields = ['Id', 'Code', 'ItemId', 'ItemName', 'ItemNo', 'Code', 'Brand', 'Spec', 'Barcode', 'Unit', 'Quantity', 'SupplyId', 'SupplyName', 'AddId', 'AddName', 'DateAdded', 'Status'];
 
     var buildGrid = function () {
         ds = new Ext.data.Store({
-            url: root_path + 'Item/ListByStock',
-            baseParams: { 'brand': config['brand'] },
+            url: root_path + 'Enter/ListEnterItem',
+            baseParams: { 'type': config['type'] },
             reader: new Ext.data.JsonReader({
                 totalProperty: 'TotalProperty',
                 successProperty: 'Success',
                 id: 'Id',
                 root: 'Root',
-                fields: item_stock_fields
+                fields: item_fields
             }),
             listeners: {
                 'load': function (store, rs) {
@@ -54,23 +55,30 @@
         )
         });
 
+        var ds_store = new Ext.data.Store({
+            url: root_path + 'Dictionary/List',
+            baseParams: { 'module': '仓库', 'table_name': '仓库', 'record_id': 1 },
+            reader: new Ext.data.JsonReader(
+            { totalProperty: 'TotalProperty', successProperty: 'Success', idProperty: 'Id', root: 'Root' },
+            [{ name: 'Id', type: 'int' },
+            { name: 'Key', type: 'string' },
+            { name: 'Value', type: 'string' }
+            ]
+        )
+        });
+
         grid = new Ext.grid.GridPanel({
             store: ds,
             region: 'center',
             sm: multiSelect,
             columns: [
                 multiSelect
-            , { header: '商品编码', width: 70, dataIndex: 'Id', sortable: true }
-            , { header: '商品名称', width: 320, dataIndex: 'ItemName', sortable: true }
-            , { header: '实时库存', width: 70, dataIndex: 'RealCount', sortable: true, renderer: function (value, metadata, record) {
-                if (value < record.data.LimitCount) {
-                    return '<span style="color:red;">' + value + '</span>';
-                }
-                else {
-                    return value;
-                }
-            }
-            }
+            , { header: '商品编码', width: 70, dataIndex: 'ItemId', sortable: true }
+            , { header: '商品名称', width: 300, dataIndex: 'ItemName', sortable: true }
+            , { header: '供应商名称', width: 90, dataIndex: 'SupplyName', sortable: true }
+            , { header: '采购日期', width: 90, dataIndex: 'DateAdded', sortable: true, renderer: dateFormat }
+            , { header: '采购人', width: 70, dataIndex: 'AddName', sortable: true }
+            , { header: '采购数量', width: 70, dataIndex: 'Quantity', sortable: true }
             ],
             tbar: [
                 '快速查找：',
@@ -98,6 +106,28 @@
                         },
                         'keyup': function () {
                             this.store.filter('Value', this.getRawValue(), true, false);
+                        }
+                    }
+                }
+                , { xtype: 'displayfield', width: 80, value: '按仓库筛选：' }
+                , {
+                    xtype: 'combo',
+                    name: 'Store',
+                    valueField: 'Key',
+                    displayField: 'Value',
+                    mode: 'remote',
+                    allowBlank: true,
+                    store: ds_store,
+                    selectOnFocus: true,
+                    editable: true,
+                    triggerAction: 'all',
+                    loadingText: 'loading...',
+                    maxLength: 64,
+                    width: 110,
+                    listeners: {
+                        'select': function (combo, record, index) {
+                            ds.baseParams['store_id'] = record.data.Key;
+                            ds.load();
                         }
                     }
                 }
@@ -224,7 +254,7 @@
 
     var buildWin = function () {
         win = new Ext.Window({
-            title: '商品列表',
+            title: '入库商品列表',
             width: 750,
             height: 430,
             modal: true,

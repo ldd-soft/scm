@@ -40,11 +40,16 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Omu.ValueInjecter, Version=2.3.3.0, Culture=neutral, PublicKeyToken=c7694541b0ac80e4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Omu.ValueInjecter.dll</HintPath>
+    </Reference>
     <Reference Include="ServiceStack.Text">
       <HintPath>..\packages\ServiceStack.Text.4.0.11\lib\net40\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -76,9 +81,14 @@
     <Compile Include="Controllers\SupplyController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ClientItemController.cs" />
-    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PurchaseController.cs" />
+    <Compile Include="Controllers\PurchaseItemController.cs" />
     <Compile Include="Controllers\SaleController.cs" />
+    <Compile Include="Controllers\SaleItemController.cs" />
+    <Compile Include="Controllers\EnterController.cs" />
+    <Compile Include="Controllers\EnterItemController.cs" />
+    <Compile Include="Controllers\ExitController.cs" />
+    <Compile Include="Controllers\ExitItemController.cs" />
     <Compile Include="Daos\DictionaryDao.cs" />
     <Compile Include="Daos\ModuleDao.cs" />
     <Compile Include="Daos\UserDao.cs" />
@@ -86,12 +96,18 @@
     <Compile Include="Daos\SupplyDao.cs" />
     <Compile Include="Daos\ItemDao.cs" />
     <Compile Include="Daos\ClientItemDao.cs" />
-    <Compile Include="Daos\OrderDao.cs" />
     <Compile Include="Daos\PurchaseDao.cs" />
+    <Compile Include="Daos\PurchaseItemDao.cs" />
     <Compile Include="Daos\SaleDao.cs" />
+    <Compile Include="Daos\SaleItemDao.cs" />
+    <Compile Include="Daos\EnterDao.cs" />
+    <Compile Include="Daos\EnterItemDao.cs" />
+    <Compile Include="Daos\ExitDao.cs" />
+    <Compile Include="Daos\ExitItemDao.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DecimalModelBinder.cs" />
     <Compile Include="Models\JsonNetResult.cs" />
     <Compile Include="Models\Page.cs" />
     <Compile Include="Models\PartialClass.cs" />
@@ -106,6 +122,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Omu.ValueInjecter.dll" />
+    <Content Include="bin\Omu.ValueInjecter.XML" />
     <Content Include="Content\css\ext-patch.css" />
     <Content Include="Content\css\login.css" />
     <Content Include="Content\css\main.css" />
@@ -1460,6 +1478,7 @@
     <Content Include="Scripts\lib\jquery\themes\base\images\ui-icons_888888_256x240.png" />
     <Content Include="Scripts\lib\jquery\themes\base\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Scripts\lib\jquery\themes\base\jquery-ui.css" />
+    <Content Include="Scripts\lib\plugins\BigDecimal-all-last.min.js" />
     <Content Include="Scripts\lib\plugins\calendar\calendar-all-debug.js" />
     <Content Include="Scripts\lib\plugins\calendar\calendar-all.js" />
     <Content Include="Scripts\lib\plugins\calendar\resources\css\calendar.css" />
@@ -1515,11 +1534,20 @@
     <Content Include="Scripts\lib\plugins\queryBuilder\queryBuilder.js" />
     <Content Include="Scripts\lib\plugins\queryBuilder\queryBuilderForm.js" />
     <Content Include="Scripts\views\desktop\index.js" />
-    <Content Include="Scripts\views\order\add.js" />
-    <Content Include="Scripts\views\order\data.js" />
-    <Content Include="Scripts\views\order\edit.js" />
-    <Content Include="Scripts\views\order\index.js" />
-    <Content Include="Scripts\views\order\order.js" />
+    <Content Include="Scripts\views\purchase\add.js" />
+    <Content Include="Scripts\views\purchase\edit.js" />
+    <Content Include="Scripts\views\purchase\index.js" />
+    <Content Include="Scripts\views\purchase\purchase.js" />
+    <Content Include="Scripts\views\Store\Enter\add.js" />
+    <Content Include="Scripts\views\Store\Enter\edit.js" />
+    <Content Include="Scripts\views\Store\Enter\index.js" />
+    <Content Include="Scripts\views\Store\Enter\enter.js" />
+    <Content Include="Scripts\views\Store\Enter\selectEnterItem.js" />
+    <Content Include="Scripts\views\Store\Exit\add.js" />
+    <Content Include="Scripts\views\Store\Exit\edit.js" />
+    <Content Include="Scripts\views\Store\Exit\exit.js" />
+    <Content Include="Scripts\views\Store\Exit\index.js" />
+    <Content Include="Scripts\views\Store\Exit\selectExitItem.js" />
     <Content Include="Scripts\views\system\clientitem\clientitem.js" />
     <Content Include="Scripts\views\system\client\select.js" />
     <Content Include="Scripts\views\system\item\add.js" />
@@ -1527,6 +1555,7 @@
     <Content Include="Scripts\views\system\item\item.js" />
     <Content Include="Scripts\views\system\item\index.js" />
     <Content Include="Scripts\views\system\item\select.js" />
+    <Content Include="Scripts\views\system\item\selectBatch.js" />
     <Content Include="Scripts\views\system\public\data.js" />
     <Content Include="Scripts\views\system\supply\select.js" />
     <Content Include="Scripts\views\system\user\add.js" />
@@ -1544,6 +1573,10 @@
     <Content Include="Scripts\views\system\clientitem\add.js" />
     <Content Include="Scripts\views\system\clientitem\edit.js" />
     <Content Include="Scripts\views\system\clientitem\index.js" />
+    <Content Include="Scripts\views\sale\add.js" />
+    <Content Include="Scripts\views\sale\edit.js" />
+    <Content Include="Scripts\views\sale\index.js" />
+    <Content Include="Scripts\views\sale\sale.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

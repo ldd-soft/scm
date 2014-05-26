@@ -1,4 +1,4 @@
-﻿SelectItem = function (config) {
+﻿SelectItemBatch = function (config) {
     var config = config || {};
     var ds, grid;
     var pageSize = 100;
@@ -7,14 +7,13 @@
 
     var buildGrid = function () {
         ds = new Ext.data.Store({
-            url: root_path + 'Item/ListByStock',
-            baseParams: { 'brand': config['brand'] },
+            url: root_path + 'Item/ListByBatchStock',
             reader: new Ext.data.JsonReader({
                 totalProperty: 'TotalProperty',
                 successProperty: 'Success',
                 id: 'Id',
                 root: 'Root',
-                fields: item_stock_fields
+                fields: item_batch_stock_fields
             }),
             listeners: {
                 'load': function (store, rs) {
@@ -54,6 +53,18 @@
         )
         });
 
+        var ds_store = new Ext.data.Store({
+            url: root_path + 'Dictionary/List',
+            baseParams: { 'module': '仓库', 'table_name': '仓库', 'record_id': 1 },
+            reader: new Ext.data.JsonReader(
+            { totalProperty: 'TotalProperty', successProperty: 'Success', idProperty: 'Id', root: 'Root' },
+            [{ name: 'Id', type: 'int' },
+            { name: 'Key', type: 'string' },
+            { name: 'Value', type: 'string' }
+            ]
+        )
+        });
+
         grid = new Ext.grid.GridPanel({
             store: ds,
             region: 'center',
@@ -62,15 +73,9 @@
                 multiSelect
             , { header: '商品编码', width: 70, dataIndex: 'Id', sortable: true }
             , { header: '商品名称', width: 320, dataIndex: 'ItemName', sortable: true }
-            , { header: '实时库存', width: 70, dataIndex: 'RealCount', sortable: true, renderer: function (value, metadata, record) {
-                if (value < record.data.LimitCount) {
-                    return '<span style="color:red;">' + value + '</span>';
-                }
-                else {
-                    return value;
-                }
-            }
-            }
+            , { header: '仓库名称', width: 70, dataIndex: 'StoreName', sortable: true }
+            , { header: '生产日期', width: 100, dataIndex: 'DateProduct', sortable: true, renderer: dateFormat }
+            , { header: '实时库存', width: 70, dataIndex: 'RealCount', sortable: true }
             ],
             tbar: [
                 '快速查找：',
@@ -98,6 +103,28 @@
                         },
                         'keyup': function () {
                             this.store.filter('Value', this.getRawValue(), true, false);
+                        }
+                    }
+                }
+                , { xtype: 'displayfield', width: 80, value: '按仓库筛选：' }
+                , {
+                    xtype: 'combo',
+                    name: 'Store',
+                    valueField: 'Key',
+                    displayField: 'Value',
+                    mode: 'remote',
+                    allowBlank: true,
+                    store: ds_store,
+                    selectOnFocus: true,
+                    editable: true,
+                    triggerAction: 'all',
+                    loadingText: 'loading...',
+                    maxLength: 64,
+                    width: 110,
+                    listeners: {
+                        'select': function (combo, record, index) {
+                            ds.baseParams['store_id'] = record.data.Key;
+                            ds.load();
                         }
                     }
                 }
@@ -224,7 +251,7 @@
 
     var buildWin = function () {
         win = new Ext.Window({
-            title: '商品列表',
+            title: '库存商品列表',
             width: 750,
             height: 430,
             modal: true,

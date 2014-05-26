@@ -25,10 +25,14 @@ namespace SupplyChainManager.Controllers
             Page<Item> page = new Page<Item>();
             page.Params = new Dictionary<string, string>();
             page.Start = formCollection["start"] == null ? 0 : int.Parse(formCollection["start"]);
-            page.Limit = formCollection["limit"] == null ? 50 : int.Parse(formCollection["limit"]);
+            page.Limit = formCollection["limit"] == null ? 100 : int.Parse(formCollection["limit"]);
             if (!string.IsNullOrEmpty(Request["query"]))
             {
                 page.Params.Add("query", formCollection["query"]);
+            }
+            if (!string.IsNullOrEmpty(Request["brand"]))
+            {
+                page.Params.Add("brand", formCollection["brand"]);
             }
             int count = 0;
             var result = dao.FindByPage(page, ref count);
@@ -41,7 +45,6 @@ namespace SupplyChainManager.Controllers
             jsonNetResult.Data = page;
 
             return jsonNetResult;
-
         }
 
         // Ìí¼Ó        
@@ -100,6 +103,66 @@ namespace SupplyChainManager.Controllers
             {
                 Content = result
             };
+        }
+
+        public JsonNetResult ListByStock(FormCollection formCollection)
+        {
+            Page<ItemStockView> page = new Page<ItemStockView>();
+            page.Params = new Dictionary<string, string>();
+            page.Start = formCollection["start"] == null ? 0 : int.Parse(formCollection["start"]);
+            page.Limit = formCollection["limit"] == null ? 100 : int.Parse(formCollection["limit"]);
+            if (!string.IsNullOrEmpty(Request["query"]))
+            {
+                page.Params.Add("query", formCollection["query"]);
+            }
+            if (!string.IsNullOrEmpty(Request["brand"]))
+            {
+                page.Params.Add("brand", formCollection["brand"]);
+            }
+
+            int count = 0;
+            var result = dao.ListByStock(page, ref count);
+            page.Root = result;
+            page.TotalProperty = count;
+
+            JsonNetResult jsonNetResult = new JsonNetResult();
+            jsonNetResult.Formatting = Formatting.Indented;
+            jsonNetResult.SerializerSettings.Converters.Add(new JavaScriptDateTimeConverter());
+            jsonNetResult.Data = page;
+
+            return jsonNetResult;
+        }
+
+        public JsonNetResult ListByBatchStock(FormCollection formCollection)
+        {
+            Page<ItemBatchStockView> page = new Page<ItemBatchStockView>();
+            page.Params = new Dictionary<string, string>();
+            page.Start = formCollection["start"] == null ? 0 : int.Parse(formCollection["start"]);
+            page.Limit = formCollection["limit"] == null ? 100 : int.Parse(formCollection["limit"]);
+            if (!string.IsNullOrEmpty(Request["query"]))
+            {
+                page.Params.Add("query", formCollection["query"]);
+            }
+            if (!string.IsNullOrEmpty(Request["brand"]))
+            {
+                page.Params.Add("brand", formCollection["brand"]);
+            }
+            if (!string.IsNullOrEmpty(Request["store_id"]))
+            {
+                page.Params.Add("store_id", formCollection["store_id"]);
+            }
+
+            int count = 0;
+            var result = dao.ListByBatchStock(page, ref count);
+            page.Root = result;
+            page.TotalProperty = count;
+
+            JsonNetResult jsonNetResult = new JsonNetResult();
+            jsonNetResult.Formatting = Formatting.Indented;
+            jsonNetResult.SerializerSettings.Converters.Add(new JavaScriptDateTimeConverter());
+            jsonNetResult.Data = page;
+
+            return jsonNetResult;
         }
     }
 }

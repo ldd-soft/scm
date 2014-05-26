@@ -30,6 +30,10 @@ namespace SupplyChainManager.Controllers
             {
                 page.Params.Add("query", formCollection["query"]);
             }
+            if (!string.IsNullOrEmpty(Request["brand"]))
+            {
+                page.Params.Add("brand", formCollection["brand"]);
+            }
             int count = 0;
             var result = dao.FindByPage(page, ref count);
             page.Root = result;

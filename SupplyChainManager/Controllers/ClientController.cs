@@ -30,6 +30,10 @@ namespace SupplyChainManager.Controllers
             {
                 page.Params.Add("query", formCollection["query"]);
             }
+            if (!string.IsNullOrEmpty(Request["code"]))
+            {
+                page.Params.Add("code", formCollection["code"]);
+            }
             int count = 0;
             var result = dao.FindByPage(page, ref count);
             page.Root = result;
@@ -96,5 +100,58 @@ namespace SupplyChainManager.Controllers
                 Content = result
             };
         }
+
+        public JsonNetResult ListStore(FormCollection formCollection)
+        {
+            Page<ClientStore> page = new Page<ClientStore>();
+            page.Params = new Dictionary<string, string>();
+            page.Start = formCollection["start"] == null ? 0 : int.Parse(formCollection["start"]);
+            page.Limit = formCollection["limit"] == null ? 50 : int.Parse(formCollection["limit"]);
+            if (!string.IsNullOrEmpty(Request["client_id"]))
+            {
+                page.Params.Add("client_id", formCollection["client_id"]);
+            }
+            int count = 0;
+            var result = dao.ListStore(page, ref count);
+            page.Root = result;
+            page.TotalProperty = count;
+
+            JsonNetResult jsonNetResult = new JsonNetResult();
+            jsonNetResult.Formatting = Formatting.Indented;
+            jsonNetResult.SerializerSettings.Converters.Add(new JavaScriptDateTimeConverter());
+            jsonNetResult.Data = page;
+
+            return jsonNetResult;
+
+        }
+
+        public JsonNetResult ListCompany(FormCollection formCollection)
+        {
+            Page<Company> page = new Page<Company>();
+            page.Params = new Dictionary<string, string>();
+            page.Start = formCollection["start"] == null ? 0 : int.Parse(formCollection["start"]);
+            page.Limit = formCollection["limit"] == null ? 50 : int.Parse(formCollection["limit"]);
+            if (!string.IsNullOrEmpty(Request["type"]))
+            {
+                page.Params.Add("type", formCollection["type"]);
+            }
+            if (!string.IsNullOrEmpty(Request["code"]))
+            {
+                page.Params.Add("code", formCollection["code"]);
+            }
+            int count = 0;
+            var result = dao.FindCompanyByPage(page, ref count);
+            page.Root = result;
+            page.TotalProperty = count;
+
+            JsonNetResult jsonNetResult = new JsonNetResult();
+            jsonNetResult.Formatting = Formatting.Indented;
+            jsonNetResult.SerializerSettings.Converters.Add(new JavaScriptDateTimeConverter());
+            jsonNetResult.Data = page;
+
+            return jsonNetResult;
+
+        }
     }
+
 }

@@ -11,22 +11,29 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Configuration;
-using Omu.ValueInjecter;
 
 namespace SupplyChainManager.Controllers
 {
 
     [UserAuthorize]
-    public class SaleController : Controller
+    public class EnterItemController : Controller
     {
-        private SaleDao dao = new SaleDao();
+        private EnterItemDao dao = new EnterItemDao();
 
         public JsonNetResult Index(FormCollection formCollection)
         {
-            Page<Sale> page = new Page<Sale>();
+            Page<EnterItem> page = new Page<EnterItem>();
             page.Params = new Dictionary<string, string>();
             page.Start = formCollection["start"] == null ? 0 : int.Parse(formCollection["start"]);
             page.Limit = formCollection["limit"] == null ? 50 : int.Parse(formCollection["limit"]);
+            if (!string.IsNullOrEmpty(Request["query"]))
+            {
+                page.Params.Add("query", formCollection["query"]);
+            }
+            if (!string.IsNullOrEmpty(Request["enter_id"]))
+            {
+                page.Params.Add("enter_id", formCollection["enter_id"]);
+            }
             int count = 0;
             var result = dao.FindByPage(page, ref count);
             page.Root = result;
@@ -42,16 +49,10 @@ namespace SupplyChainManager.Controllers
         }
 
         // Ìí¼Ó        
-        public ContentResult Create(Sale sale, List<SaleItem> items)
+        public ContentResult Create(EnterItem enterItem)
         {
             string result = "{success:false,Id:0}";
-            User user = (User)Session["user"];
-            sale.SaleItem.AddRange(items);
-            sale.AddId = user.Id;
-            sale.AddName = user.Name;
-            sale.DateAdded = DateTime.Now;
-            sale.Status = "´ýÉóºË";
-            int id = dao.Create(sale);
+            int id = dao.Create(enterItem);
             if (id > 0)
             {
                 result = "{success:true,Id:" + id + "}";
@@ -81,16 +82,13 @@ namespace SupplyChainManager.Controllers
 
         // ¸ü¸Ä
         [AcceptVerbs(HttpVerbs.Post)]
-        public ContentResult Edit(Sale sale, List<SaleItem> items)
+        public ContentResult Edit(EnterItem enterItem)
         {
             string result = "{success:false,Id:1}";
             try
             {
-                sale.SaleItem.AddRange(items);
-                Sale row = dao.FindById(sale.Id);
-                dao.DeleteItems(row.SaleItem);
-                row.InjectFrom(sale);
-
+                EnterItem row = dao.FindById(enterItem.Id);
+                UpdateModel(row);
                 dao.Update();
 
                 result = "{success:true}";
