@@ -6,72 +6,6 @@
     var t_id = Ext.id();
     var client_id;
 
-    var submit = function () {
-        if (config['record']) {
-            Ext.Ajax.request({
-                url: root_path + 'Exit/ChangeStatus',
-                params: { id: config['record'].data.Id, value: 'submitted' },
-                success: function (response) {
-                    var data = Ext.util.JSON.decode(response.responseText);
-                    if (data.success) {
-                        config['onClose'](config['parentId']);
-                    }
-                    else {
-                        Ext.MessageBox.alert('Warning', data.msg);
-                    }
-                }
-            });
-        }
-        else {
-            fp.form.findField('Status').setValue('submitted');
-            save();
-        }
-    }
-
-    var reject = function (comments) {
-        if (config['record']) {
-            Ext.Ajax.request({
-                url: root_path + 'Exit/Reject',
-                params: { id: config['record'].data.Id, reject_comments: comments },
-                success: function (response) {
-                    var data = Ext.util.JSON.decode(response.responseText);
-                    if (data.success) {
-                        config['onClose'](config['parentId']);
-                    }
-                    else {
-                        Ext.MessageBox.alert('warning', data.msg);
-                    }
-                }
-            });
-        }
-    }
-
-    var showReject = function () {
-        buildRejectWin();
-        win_reject.show();
-    }
-
-    var pass = function () {
-        if (config['record']) {
-            Ext.getBody().mask("processing...", "x-mask-loading");
-            Ext.Ajax.request({
-                url: root_path + 'Exit/Pass',
-                params: { id: config['record'].data.Id },
-                success: function (response) {
-                    var data = Ext.util.JSON.decode(response.responseText);
-                    if (data.success) {
-                        config['onClose'](config['parentId']);
-                    }
-                    else {
-                        Ext.MessageBox.alert('warning', data.msg);
-                    }
-                    Ext.getBody().unmask();
-                }
-            });
-
-        }
-    }
-
     var cancel = function () {
         config['onClose'](config['parentId']);
     };
@@ -115,75 +49,33 @@
         });
     };
 
-    var cal = function () {
-        var ds_temp = grid_item.getStore();
-        var fee = new BigDecimal("0");
-        for (var i = 0; i < ds_temp.getCount(); i++) {
-            var record = ds_temp.getAt(i);
-            if (record.data.Amount) {
-                var mount = new BigDecimal(record.data.Amount.toString());
-                fee = fee.add(mount);
-            }
-        }
-
-        fp.form.findField('Amount').setValue(fee.toString());
-    }
-
     var selectItem = function () {
+        var client_id = fp.form.findField('RecordId').getValue();
+        var store_id = fp.form.findField('StoreId').getValue();
+        if (!client_id) {
+            Ext.MessageBox.alert('提示', '请先选择商家!');
+            return;
+        }
+        if (!store_id) {
+            Ext.MessageBox.alert('提示', '请先选择出库仓库!');
+            return;
+        }
         mycall('store/exit/selectExitItem', function () {
             var selectExitItem = new SelectExitItem({
                 onSelect: function (recs) {
                     Ext.each(recs, function (record) {
                         var object = ds_item.recordType;
-                        var rec = new object({ ItemId: record.data.ItemId, ItemName: record.data.ItemName, StoreId: record.data.StoreId, StoreName: record.data.StoreName, DateProduct: record.data.DateProduct, QuantityNeed: record.data.Quantity, Spec: record.data.Spec, Unit: record.data.Unit, Barcode: record.data.Barcode, ItemNo: record.data.ItemNo });
+                        var rec = new object({ TableName: 'SaleItem', RecordId: record.data.Id, ItemId: record.data.ItemId, ItemName: record.data.ItemName, BatchId: record.data.BatchId, BatchNo: record.data.BatchNo, StoreId: record.data.StoreId, StoreName: record.data.StoreName, DateProduct: record.data.DateProduct, QuantityNeed: record.data.Quantity, Spec: record.data.Spec, Unit: record.data.Unit, Price: record.data.Promotion == null ? record.data.Price : record.data.Promotion, Barcode: record.data.Barcode, ItemNo: record.data.ItemNo });
                         ds_item.add([rec]);
                     });
                     //selectItem.hide();
                 },
-                type: fp.form.findField('ExitType').getValue()
+                type: fp.form.findField('ExitType').getValue(),
+                client_id: client_id,
+                store_id: store_id
             });
             selectExitItem.show();
         });
-    }
-
-    var buildRejectWin = function () {
-
-        fp_reject = new Ext.form.FormPanel({
-            labelAlign: 'right',
-            labelWidth: 1,
-            bodyStyle: 'padding:5px 5px 0',
-            layout: 'form',
-            defaultType: 'textfield',
-            defaults: {
-                width: 410
-            },
-            items: [{
-                xtype: 'textarea',
-                height: 140,
-                name: 'Comments'
-            }]
-        });
-
-        win_reject = new Ext.Window({
-            title: 'reject comments',
-            width: 450,
-            height: 220,
-            modal: true,
-            layout: 'fit',
-            items: fp_reject,
-            buttons: [{
-                text: 'cancel',
-                handler: function () {
-                    win_reject.close();
-                }
-            }, {
-                text: 'ok',
-                handler: function () {
-                    reject(fp_reject.form.findField('Comments').getValue());
-                    win_reject.close();
-                }
-            }]
-        })
     }
 
     var buildPanel = function () {
@@ -245,6 +137,21 @@
                     decimalPrecision: 0
                 })
                 },
+                { header: '缺货数量', width: 70, dataIndex: 'QuantityMiss' },
+                { header: '缺货处理', width: 80, dataIndex: 'MissProcess', editor: new Ext.form.ComboBox({
+                    mode: 'local',
+                    store: new Ext.data.SimpleStore({
+                        data: [['出库完成', '出库完成'], ['继续等待', '继续等待']],
+                        fields: ['text', 'value']
+                    }),
+                    displayField: 'text',
+                    valueField: 'value',
+                    value: '出库完成',
+                    selectOnFocus: true,
+                    editable: false,
+                    triggerAction: 'all'
+                })
+                },
                 { header: '备注', width: 80, dataIndex: 'Remark', renderer: function (value, metadata) {
                     metadata.attr = 'style="white-space:normal;"';
                     return value;
@@ -297,21 +204,11 @@
                 'cellclick': function (grid, rowIndex, columnIndex) {
                 },
                 'afteredit': function (e) {
-
-                    if (e.field == 'Quantity' || e.field == 'Price' || e.field == 'Promotion') {
-                        if (e.record.get('Promotion')) {
-                            var quantity = new BigDecimal(e.record.get('Quantity').toString());
-                            var promotion = new BigDecimal(e.record.get('Promotion').toString());
-                            var amount = quantity.multiply(promotion);
-                            e.record.set('Amount', amount.toString());
-                        }
-                        else if (e.record.get('Price')) {
-                            var quantity = new BigDecimal(e.record.get('Quantity').toString());
-                            var price = new BigDecimal(e.record.get('Price').toString());
-                            var amount = quantity.multiply(price);
-                            e.record.set('Amount', amount.toString());
-                        }
-                        cal();
+                    if (e.field == 'QuantityReal') {
+                        var quantityNeed = parseInt(e.record.get('QuantityNeed'));
+                        var quantityReal = parseInt(e.record.get('QuantityReal'));
+                        var quantityMiss = quantityNeed - quantityReal;
+                        e.record.set('QuantityMiss', quantityMiss);
                     }
                 }
             },
@@ -341,14 +238,6 @@
                 width: 1080,
                 footerStyle: 'background-color: #e0e0e0;',
                 buttons: [{
-                    text: '退回',
-                    disabled: (!config['edit'] || config['record'].data.Status != 'submitted' || (!user_role.is_manager && !user_role.is_finance)) || (config['record'].data.MgrApproved == true && user_role.is_manager && !user_role.is_finance) || (config['record'].data.FinanceApproved == true && user_role.is_finance),
-                    handler: showReject
-                }, {
-                    text: '同意',
-                    disabled: (!config['edit'] || config['record'].data.Status != 'submitted' || (!user_role.is_manager && !user_role.is_finance)) || (config['record'].data.MgrApproved == true && user_role.is_manager && !user_role.is_finance) || (config['record'].data.FinanceApproved == true && user_role.is_finance),
-                    handler: pass
-                }, {
                     text: '取消',
                     //disabled: config['edit'],
                     handler: cancel
@@ -442,6 +331,7 @@
                         listeners: {
                             'select': function (combo, record, index) {
                                 fp.form.findField('RecordId').setValue(record.data.Id);
+                                ds_item.removeAll();
                             },
                             'keyup': function () {
                                 this.store.filter('Value', this.getRawValue(), true, false);
@@ -575,14 +465,6 @@
                 width: 1080,
                 footerStyle: 'background-color: #e0e0e0;',
                 buttons: [{
-                    text: '退回',
-                    disabled: (!config['edit'] || config['record'].data.Status != 'submitted' || (!user_role.is_manager && !user_role.is_finance)) || (config['record'].data.MgrApproved == true && user_role.is_manager && !user_role.is_finance) || (config['record'].data.FinanceApproved == true && user_role.is_finance),
-                    handler: showReject
-                }, {
-                    text: '同意',
-                    disabled: (!config['edit'] || config['record'].data.Status != 'submitted' || (!user_role.is_manager && !user_role.is_finance)) || (config['record'].data.MgrApproved == true && user_role.is_manager && !user_role.is_finance) || (config['record'].data.FinanceApproved == true && user_role.is_finance),
-                    handler: pass
-                }, {
                     text: '取消',
                     //disabled: config['edit'],
                     handler: cancel

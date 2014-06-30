@@ -92,7 +92,7 @@ namespace SupplyChainManager.Daos
             {
                 others = ConfigurationManager.AppSettings["IsManager"].Split(',').ToList();
             }
-            return user.Level >= 40 || others.Contains(user.Login);
+            return others.Contains(user.Login);
 
         }
 

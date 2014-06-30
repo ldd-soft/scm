@@ -137,5 +137,42 @@ namespace SupplyChainManager.Controllers
                 Content = result
             };
         }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ContentResult ChangePassword(string oldPassword, string password)
+        {
+            string result = "{success:false}";
+
+            User User = (User)Session["user"];
+            if (User == null)
+            {
+                result = "{success:false, msg:'会话过期,请重新登录后再修改密码！'}";
+                return new ContentResult
+                {
+                    Content = result
+                };
+            }
+
+            if (User.Password != dao.Encrpt(oldPassword))
+            {
+                result = "{success:false, msg:'历史密码不正确,请重新输入！'}";
+                return new ContentResult
+                {
+                    Content = result
+                };
+            }
+
+            User.Password = password;
+            User row = dao.FindById(User.Id);
+            row.Password = dao.Encrpt(password);
+            if (dao.Update())
+            {
+                result = "{success:true}";
+            }
+            return new ContentResult
+            {
+                Content = result
+            };
+        }
     }
 }

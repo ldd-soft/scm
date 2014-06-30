@@ -58,11 +58,15 @@
             store: ds,
             region: 'center',
             sm: multiSelect,
+            columnLines: true,
             columns: [
                 multiSelect
             , { header: '商品编码', width: 70, dataIndex: 'Id', sortable: true }
             , { header: '商品名称', width: 320, dataIndex: 'ItemName', sortable: true }
             , { header: '实时库存', width: 70, dataIndex: 'RealCount', sortable: true, renderer: function (value, metadata, record) {
+                if (!value) {
+                    return 0;
+                }
                 if (value < record.data.LimitCount) {
                     return '<span style="color:red;">' + value + '</span>';
                 }
@@ -91,6 +95,7 @@
                     loadingText: 'loading...',
                     maxLength: 64,
                     width: 110,
+                    value: config['brand'],
                     listeners: {
                         'select': function (combo, record, index) {
                             ds.baseParams['brand'] = record.data.Value;

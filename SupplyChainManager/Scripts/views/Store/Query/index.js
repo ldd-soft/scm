@@ -4,18 +4,16 @@ var panel;
 var record;
 var expander;
 
-var fields = ['Id', 'SupplyId', 'SupplyName', 'SupplyType', 'Brand', 'AddId', 'AddName', 'DateAdded', 'Amount', 'Status', 'DateEnter', 'EnterId', 'IncludeTax', 'FreightType', 'DeliverType', 'PaymentStatus', 'Invoice', 'ExpectArrive', 'PaymentTerm', 'CheckId', 'CheckName', 'DateChecked', 'ApproveId', 'ApproveName', 'DateApproved', 'Remark']
-var fields_item = ['Id', 'PurchaseId', 'PurchaseNo', 'ItemId', 'ItemName', 'ItemNo', 'Barcode', 'Spec', 'Unit', 'Quantity', 'Price', 'Discount', 'Promotion', 'Amount', 'QuantityReal', 'AmountReal', 'QuantityMiss', 'AmountMiss', 'MissProcess', 'Remark'];
-
 var buildGrid = function () {
     ds = new Ext.data.Store({
-        url: root_path + 'Purchase/Index',
+        url: root_path + 'Item/ListByStock',
+        baseParams: {'only_count': 'true'},
         reader: new Ext.data.JsonReader({
             totalProperty: 'TotalProperty',
             successProperty: 'Success',
             id: 'Id',
             root: 'Root',
-            fields: fields
+            fields: item_stock_fields
         }),
         listeners: {
             'load': function (store, rs) {
@@ -35,7 +33,7 @@ var buildGrid = function () {
                     }
                 });
 
-                if (search_type.getValue() == '明细') {
+                if (search_type.getValue() == '批次库存') {
                     expander.expandAll();
                 }
             }
@@ -47,13 +45,14 @@ var buildGrid = function () {
         createExpandingRowPanelItems: function (rec1, rowIndex) {
 
             ds_item = new Ext.data.Store({
-                url: root_path + 'PurchaseItem/Index',
+                url: root_path + 'Item/ListByBatchStock',
+                baseParams: {'only_count': 'true'},
                 reader: new Ext.data.JsonReader({
                     totalProperty: 'TotalProperty',
                     successProperty: 'Success',
                     id: 'Id',
                     root: 'Root',
-                    fields: fields_item
+                    fields: item_batch_stock_fields
                 })
             });
 
@@ -76,11 +75,15 @@ var buildGrid = function () {
                 }
             });
 
-            ds_item.baseParams.purchase_id = rec1.data.Id;
+            ds_item.baseParams.item_id = rec1.data.Id;
             if (search_type.getValue() == '明细') {
                 ds_item.baseParams.query = search_query.getValue();
+                ds_item.baseParams.date_from = search_date_from.getValue();
+                ds_item.baseParams.date_to = search_date_to.getValue();
             } else {
                 ds_item.baseParams.query = "";
+                ds_item.baseParams.date_from = "";
+                ds_item.baseParams.date_to = "";
             }
             ds_item.reload();
 
@@ -99,60 +102,45 @@ var buildGrid = function () {
 
     var toolbar = new Ext.Toolbar({
         cls: 'headtoolbar',
-        items: ['<img class="HeadingColorTag2" border="0" src="' + root_path + 'content/Images/HeadingColorTag_Theme01.png"/> <div class="ThemeHeadingText" id="list_title">采购列表 : </div>'
+        items: ['<img class="HeadingColorTag2" border="0" src="' + root_path + 'content/Images/HeadingColorTag_Theme01.png"/> <div class="ThemeHeadingText" id="list_title">库存查询 : </div>'
         ]
     });
 
     var columns = [
             expander,
-            { header: '订单编号', width: 90, dataIndex: 'Id', sortable: true, renderer: underline }
-            , { header: '商家名称', width: 200, dataIndex: 'SupplyName', sortable: true, renderer: underline }
-            , { header: '采购金额', width: 90, dataIndex: 'Amount', renderer: renderFloat }
-            , { header: '采购单状态', width: 90, dataIndex: 'Status', sortable: true, renderer: function (value) {
-                if (value == 'draft') {
-                    return '<a href="#"><font color=red>' + value + '</font></a>';
+            { header: '商品编码', width: 70, dataIndex: 'Id', sortable: true, renderer: underline }
+            , { header: '条形码', width: 120, dataIndex: 'Barcode', sortable: true }
+            , { header: '商品名称', width: 600, dataIndex: 'ItemName', sortable: true}
+            , { header: '规格', width: 70, dataIndex: 'Spec' }
+            , { header: '单位', width: 50, dataIndex: 'Unit' }
+            , { header: '总库存数', width: 70, dataIndex: 'RealCount', sortable: true, renderer: function (value, metadata, record) {
+                if (!value) {
+                    return 0;
+                }
+                if (value < record.data.LimitCount) {
+                    return '<span style="color:red;">' + value + '</span>';
                 }
                 else {
-                    return '<a href="#">' + value + '</a>';
+                    return value;
                 }
+            } 
             }
-            }
-            , { header: '录入人', width: 80, dataIndex: 'AddName', sortable: true }
-            , { header: '订购时间', width: 120, dataIndex: 'DateAdded', sortable: true, renderer: dateFormat }
-            , { header: '是否含税', width: 70, dataIndex: 'IncludeTax', sortable: true }
-            , { header: '运费承担', width: 70, dataIndex: 'FreightType', sortable: true }
-            , { header: '运送方式', width: 70, dataIndex: 'DeliverType', sortable: true }
-            , { header: '复核人', width: 80, dataIndex: 'CheckName', sortable: true }
-            , { header: '批准人', width: 80, dataIndex: 'ApproveName', sortable: true }
-            , { header: '备注', width: 110, dataIndex: 'Remark', sortable: true }
         ];
 
     var columns_item = [
-                new Ext.grid.RowNumberer(),
-                { header: '商品编号', width: 70, dataIndex: 'ItemId' },
-                { header: '商品名称', width: 320, dataIndex: 'ItemName' },
-                { header: '规格', width: 50, dataIndex: 'Spec' },
-                { header: '单位', width: 50, dataIndex: 'Unit' },
-                { header: '采购数', width: 60, dataIndex: 'Quantity' },
-                { header: '价格', width: 60, dataIndex: 'Price', renderer: renderFloat },
-                { header: '优惠价', width: 60, dataIndex: 'Promotion', renderer: renderFloat },
-                { header: '金额', width: 80, dataIndex: 'Amount', renderer: renderFloat },
-                { header: '实收数', width: 60, dataIndex: 'QuantityReal' },
-                { header: '未收数', width: 60, dataIndex: 'QuantityMiss' },
-                { header: '未收处理', width: 90, dataIndex: 'MissProcess' },
-                { header: '备注', width: 120, dataIndex: 'Remark', renderer: function (value, metadata) {
-                    metadata.attr = 'style="white-space:normal;"';
-                    return value;
-                }
-                }
-        ];
-
-    currentItemConfig = { fields: fields_item, columns: columns_item };
+        new Ext.grid.RowNumberer()
+        , { header: '商品编码', width: 70, dataIndex: 'ItemId', sortable: true }
+        , { header: '商品名称', width: 320, dataIndex: 'ItemName', sortable: true }
+        , { header: '仓库名称', width: 70, dataIndex: 'StoreName', sortable: true }
+        , { header: '生产日期', width: 100, dataIndex: 'DateProduct', sortable: true, renderer: dateFormat }
+        , { header: '批次库存', width: 70, dataIndex: 'RealCount', sortable: true }
+        , { header: '效期', width: 70, dataIndex: 'ValidDate', sortable: true }
+    ];
 
     var search_type = new Ext.form.ComboBox({
         mode: 'local',
         store: new Ext.data.SimpleStore({
-            data: [['单头', '单头'], ['明细', '明细']],
+            data: [['总库存', '总库存'], ['批次库存', '批次库存']],
             fields: ['text', 'value']
         }),
         displayField: 'text',
@@ -162,8 +150,8 @@ var buildGrid = function () {
         triggerAction: 'all',
         loadingText: 'load...',
         emptyText: '',
-        value: '单头',
-        width: 70
+        value: '总库存',
+        width: 120
     });
 
     var search_date_from = new Ext.form.DateField({
@@ -221,13 +209,6 @@ var buildGrid = function () {
                     var tbar1 = new Ext.Toolbar([
                     { xtype: 'displayfield', width: 20, value: '' }
                     , {
-                        text: '添加采购',
-                        cls: 'x-btn-text-icon',
-                        iconCls: 'ico-new',
-                        handler: newFn
-                    }
-                    , { xtype: 'tbspacer', width: 50 }
-                    , {
                         xtype: 'tbtext',
                         text: '   快速查找：'
                     }
@@ -283,8 +264,11 @@ var buildGrid = function () {
             'cellclick': {
                 fn: function (grid, rowIndex, columnIndex, e) {
                     record = ds.getAt(rowIndex);
-                    if (columnIndex == 1 || columnIndex == 4) {
+                    if (columnIndex == 1) {
                         editFn(record);
+                    }
+                    if (columnIndex == 2) {
+
                     }
                 },
                 scope: this
@@ -307,25 +291,10 @@ var init = function () {
     buildLayout();
 };
 
-var newFn = function () {
-    parentId = 'Purchase';
-    currentRec = {
-        data: {},
-        item: null
-    };
-    loadModule('AddPurchase', '添加采购', 'purchase/add');
-};
-
-var editFn = function (rec) {
-    parentId = 'Purchase';
-    currentRec = rec;
-    loadModule('EditPurchase', '编辑采购', 'purchase/edit');
-};
-
 init();
 
-var p_purchase = {
-    id: 'Purchase-panel',
+var p_storeQuery = {
+    id: 'StoreQuery-panel',
     border: false,
     layout: 'border',
     items: [panel],
@@ -343,4 +312,4 @@ var p_purchase = {
 
 var cardPanel = Ext.getCmp('content-panel');
 
-cardPanel.add(p_purchase);
+cardPanel.add(p_storeQuery);

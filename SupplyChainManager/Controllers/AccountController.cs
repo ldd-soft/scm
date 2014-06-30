@@ -8,6 +8,7 @@ using System.Web.Security;
 using SupplyChainManager.Models;
 using System.Security.Principal;
 using SupplyChainManager.Daos;
+using System.Configuration;
 
 namespace SupplyChainManager.Controllers
 {
@@ -30,6 +31,10 @@ namespace SupplyChainManager.Controllers
                 GenericIdentity id = new GenericIdentity(form_login, "FormAuthentication");
                 GenericPrincipal principal = new GenericPrincipal(id, new string[0]);
                 HttpContext.User = principal;
+
+                user.IsManager = UserDao.IsManager(user);
+                user.IsFinance = UserDao.IsFinance(user);
+
                 Session["user"] = user;
                 return Redirect("~/Home/Index");
             }

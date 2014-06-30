@@ -24,12 +24,21 @@ namespace SupplyChainManager.Daos
                     {
                         case "query":
                             string query = param.Value;
-                            searchPredicate = searchPredicate.And(s => s.ItemName.Contains(query));
+                            searchPredicate = searchPredicate.And(i => i.ItemId.ToString().Contains(query) || i.ItemName.Contains(query) || i.StoreName.Contains(query) || i.Barcode.Contains(query) || i.MissProcess.Contains(query) || i.Remark.Contains(query));
                             break;
                         case "enter_id":
                             int enter_id = int.Parse(param.Value);
                             searchPredicate = searchPredicate.And(s => s.EnterId == enter_id);
                             break;
+                        case "date_from":
+                            DateTime date_from = DateTime.Parse(param.Value);
+                            searchPredicate = searchPredicate.And(p => p.DateProduct.HasValue && p.DateProduct.Value >= date_from);
+                            break;
+                        case "date_to":
+                            DateTime date_to = DateTime.Parse(param.Value);
+                            searchPredicate = searchPredicate.And(p => p.DateProduct.HasValue && p.DateProduct.Value <= date_to);
+                            break;
+
                     }
                 }
                 result = db.EnterItem.Where(searchPredicate).ToList();

@@ -24,7 +24,7 @@ namespace SupplyChainManager.Daos
                     {
                         case "query":
                             string query = param.Value;
-                            searchPredicate = searchPredicate.And(s => s.ItemName.Contains(query));
+                            searchPredicate = searchPredicate.And(i => i.ItemId.ToString().Contains(query) || i.ItemName.Contains(query) || i.MissProcess.Contains(query) || i.Remark.Contains(query));
                             break;
                         case "purchase_id":
                             int purchase_id = int.Parse(param.Value);

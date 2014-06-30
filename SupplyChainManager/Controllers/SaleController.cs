@@ -27,6 +27,23 @@ namespace SupplyChainManager.Controllers
             page.Params = new Dictionary<string, string>();
             page.Start = formCollection["start"] == null ? 0 : int.Parse(formCollection["start"]);
             page.Limit = formCollection["limit"] == null ? 50 : int.Parse(formCollection["limit"]);
+            if (!string.IsNullOrEmpty(Request["query"]))
+            {
+                page.Params.Add("query", formCollection["query"]);
+            }
+            if (!string.IsNullOrEmpty(Request["type"]))
+            {
+                page.Params.Add("type", Request["type"]);
+            }
+            if (!string.IsNullOrEmpty(Request["date_from"]))
+            {
+                page.Params.Add("date_from", Request["date_from"]);
+            }
+            if (!string.IsNullOrEmpty(Request["date_to"]))
+            {
+                page.Params.Add("date_to", Request["date_to"]);
+            }
+
             int count = 0;
             var result = dao.FindByPage(page, ref count);
             page.Root = result;
@@ -50,7 +67,7 @@ namespace SupplyChainManager.Controllers
             sale.AddId = user.Id;
             sale.AddName = user.Name;
             sale.DateAdded = DateTime.Now;
-            sale.Status = "´ýÉóºË";
+            sale.Status = "´ý³ö¿â";
             int id = dao.Create(sale);
             if (id > 0)
             {
@@ -102,5 +119,6 @@ namespace SupplyChainManager.Controllers
                 Content = result
             };
         }
+
     }
 }

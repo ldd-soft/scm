@@ -69,13 +69,15 @@
             store: ds,
             region: 'center',
             sm: multiSelect,
+            columnLines: true,
             columns: [
                 multiSelect
-            , { header: '商品编码', width: 70, dataIndex: 'Id', sortable: true }
+            , { header: '商品编码', width: 70, dataIndex: 'ItemId', sortable: true }
             , { header: '商品名称', width: 320, dataIndex: 'ItemName', sortable: true }
             , { header: '仓库名称', width: 70, dataIndex: 'StoreName', sortable: true }
             , { header: '生产日期', width: 100, dataIndex: 'DateProduct', sortable: true, renderer: dateFormat }
             , { header: '实时库存', width: 70, dataIndex: 'RealCount', sortable: true }
+            , { header: '效期', width: 70, dataIndex: 'ValidDate', sortable: true }
             ],
             tbar: [
                 '快速查找：',

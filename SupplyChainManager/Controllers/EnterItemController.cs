@@ -34,6 +34,15 @@ namespace SupplyChainManager.Controllers
             {
                 page.Params.Add("enter_id", formCollection["enter_id"]);
             }
+            if (!string.IsNullOrEmpty(Request["date_from"]))
+            {
+                page.Params.Add("date_from", Request["date_from"]);
+            }
+            if (!string.IsNullOrEmpty(Request["date_to"]))
+            {
+                page.Params.Add("date_to", Request["date_to"]);
+            }
+
             int count = 0;
             var result = dao.FindByPage(page, ref count);
             page.Root = result;

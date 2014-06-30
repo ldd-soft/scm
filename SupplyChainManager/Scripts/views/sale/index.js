@@ -5,7 +5,7 @@ var record;
 var expander;
 
 var fields = ['Id', 'ClientId', 'ClientName', 'SaleType', 'Brand', 'AddId', 'AddName', 'DateAdded', 'Amount', 'Status', 'ClientStore', 'Address', 'Contact', 'Tel', 'DateExit', 'ExitId', 'IncludeTax', 'FreightType', 'DeliverType', 'PaymentStatus', 'Invoice', 'PaymentTerm', 'CheckId', 'CheckName', 'DateChecked', 'ApproveId', 'ApproveName', 'DateApproved', 'Remark']
-var fields_item = ['Id', 'SaleId', 'ItemId', 'ItemName', 'StoreId', 'StoreName', 'BatchNo', 'DateProduct', 'ItemNo', 'Barcode', 'Spec', 'Unit', 'Quantity', 'Price', 'Discount', 'Promotion', 'Amount', 'QuantityReal', 'AmountReal', 'QuantityMiss', 'AmountMiss', 'MissProcess', 'Remark'];
+var fields_item = ['Id', 'SaleId', 'ItemId', 'ItemName', 'StoreId', 'StoreName', 'BatchId', 'BatchNo', 'DateProduct', 'ItemNo', 'Barcode', 'Spec', 'Unit', 'Quantity', 'Price', 'Discount', 'Promotion', 'Amount', 'QuantityReal', 'AmountReal', 'QuantityMiss', 'AmountMiss', 'MissProcess', 'Remark', 'QuantityStore'];
 
 var buildGrid = function () {
     ds = new Ext.data.Store({
@@ -34,6 +34,10 @@ var buildGrid = function () {
                         grid.getView().getRow(girdcount).style.backgroundColor = '#ECDFCE';
                     }
                 });
+
+                if (search_type.getValue() == '明细') {
+                    expander.expandAll();
+                }
             }
         }
     });
@@ -54,6 +58,7 @@ var buildGrid = function () {
             });
 
             var grid_item = new Ext.grid.GridPanel({
+                autoHeight: true,
                 store: ds_item,
                 columns: columns_item,
                 border: false,
@@ -72,6 +77,15 @@ var buildGrid = function () {
             });
 
             ds_item.baseParams.sale_id = rec1.data.Id;
+            if (search_type.getValue() == '明细') {
+                ds_item.baseParams.query = search_query.getValue();
+                ds_item.baseParams.date_from = search_date_from.getValue();
+                ds_item.baseParams.date_to = search_date_to.getValue();
+            } else {
+                ds_item.baseParams.query = "";
+                ds_item.baseParams.date_from = "";
+                ds_item.baseParams.date_to = "";
+            }
             ds_item.reload();
 
             var panelItems = [
@@ -89,77 +103,14 @@ var buildGrid = function () {
 
     var toolbar = new Ext.Toolbar({
         cls: 'headtoolbar',
-        items: ['<img class="HeadingColorTag2" border="0" src="' + root_path + 'content/Images/HeadingColorTag_Theme01.png"/> <div class="ThemeHeadingText" id="list_title">销售列表 : </div>'
-            , '->'
-            , '查看列表: '
-        , new Ext.form.ComboBox({
-            mode: 'local',
-            store: new Ext.data.SimpleStore({
-                data: [['单据列表', '单据列表'], ['商品列表', '商品列表']],
-                fields: ['text', 'value']
-            }),
-            displayField: 'text',
-            valueField: 'value',
-            selectOnFocus: true,
-            editable: false,
-            triggerAction: 'all',
-            loadingText: 'load...',
-            emptyText: '',
-            value: '单据列表',
-            width: 140,
-            listeners: {
-                'select': function (combo, record, index) {
-                    if (index == 0) {
-                        var colModel = new Ext.grid.ColumnModel(columns);
-                        grid.reconfigure(ds, colModel);
-                        var pagingToolbar = grid.getBottomToolbar();
-                        pagingToolbar.bind(ds);
-                        grid.getStore().reload();
-                    }
-                    if (index == 1) {
-                        var colModel = new Ext.grid.ColumnModel(columns_item);
-                        grid.reconfigure(ds_item, colModel);
-                        var pagingToolbar = grid.getBottomToolbar();
-                        pagingToolbar.bind(ds_item);
-                        grid.getStore().reload();
-                        //Ext.fly('list_title').update('销售列表 : ');
-                    }
-                }
-            }
-        })
-        , { xtype: 'displayfield', width: 20, value: '' }
-        , '状态: '
-        , new Ext.form.ComboBox({
-            mode: 'local',
-            store: new Ext.data.SimpleStore({
-                data: [['全部', '全部'], ['待审核', '待审核'], ['待入库', '待入库'], ['待结算', '待结算'], ['已完成', '已完成']],
-                fields: ['text', 'value']
-            }),
-            displayField: 'text',
-            valueField: 'value',
-            selectOnFocus: true,
-            editable: false,
-            triggerAction: 'all',
-            loadingText: 'load...',
-            emptyText: '',
-            value: '全部',
-            width: 140,
-            listeners: {
-                'select': function (combo, record, index) {
-                    ds.baseParams['limit'] = 20;
-                    ds.baseParams['status'] = record.data.value;
-                    ds.load();
-                    //ds.reload({ params: { status: record.data.value} });
-                }
-            }
-        })
+        items: ['<img class="HeadingColorTag2" border="0" src="' + root_path + 'content/Images/HeadingColorTag_Theme01.png"/> <div class="ThemeHeadingText" id="list_title">销售列表 : </div>'            
         ]
     });
 
     var columns = [
             expander,
             { header: '订单 #', width: 90, dataIndex: 'Id', sortable: true, renderer: underline }
-            , { header: '商家名称', width: 300, dataIndex: 'SupplyName', sortable: true, renderer: underline }
+            , { header: '商家名称', width: 300, dataIndex: 'ClientName', sortable: true, renderer: underline }
             , { header: '销售金额', width: 90, dataIndex: 'Amount', renderer: renderFloat }
             , { header: '销售单状态', width: 90, dataIndex: 'Status', sortable: true, renderer: function (value) {
                 if (value == 'draft') {
@@ -175,8 +126,6 @@ var buildGrid = function () {
             , { header: '是否含税', width: 70, dataIndex: 'IncludeTax', sortable: true }
             , { header: '运费承担', width: 70, dataIndex: 'FreightType', sortable: true }
             , { header: '运送方式', width: 70, dataIndex: 'DeliverType', sortable: true }
-            , { header: '复核人', width: 80, dataIndex: 'CheckName', sortable: true }
-            , { header: '批准人', width: 80, dataIndex: 'ApproveName', sortable: true }
             , { header: '备注', width: 210, dataIndex: 'Remark', sortable: true }
         ];
 
@@ -188,11 +137,13 @@ var buildGrid = function () {
                 { header: '单位', width: 50, dataIndex: 'Unit' },
                 { header: '仓库名称', width: 60, dataIndex: 'StoreName' },
                 { header: '生产日期', width: 90, dataIndex: 'DateProduct', sortable: true, renderer: dateFormat },
-                { header: '商品数量', width: 60, dataIndex: 'Quantity' },
+                { header: '销售数', width: 60, dataIndex: 'Quantity' },
                 { header: '价格', width: 60, dataIndex: 'Price', renderer: renderFloat },
                 { header: '优惠价', width: 60, dataIndex: 'Promotion', renderer: renderFloat },
-                { header: '商品实收数量', width: 90, dataIndex: 'QuantityReal' },
-                { header: '金额小计', width: 80, dataIndex: 'Amount', renderer: renderFloat },
+                { header: '金额', width: 80, dataIndex: 'Amount', renderer: renderFloat },
+                { header: '实收数', width: 60, dataIndex: 'QuantityReal' },
+                { header: '未收数', width: 60, dataIndex: 'QuantityMiss' },
+                { header: '未收处理', width: 90, dataIndex: 'MissProcess' },
                 { header: '备注', width: 90, dataIndex: 'Remark', renderer: function (value, metadata) {
                     metadata.attr = 'style="white-space:normal;"';
                     return value;
@@ -201,6 +152,52 @@ var buildGrid = function () {
         ];
 
     currentItemConfig = { fields: fields_item, columns: columns_item };
+
+    var search_type = new Ext.form.ComboBox({
+        mode: 'local',
+        store: new Ext.data.SimpleStore({
+            data: [['单头', '单头'], ['明细', '明细']],
+            fields: ['text', 'value']
+        }),
+        displayField: 'text',
+        valueField: 'value',
+        selectOnFocus: true,
+        editable: false,
+        triggerAction: 'all',
+        loadingText: 'load...',
+        emptyText: '',
+        value: '单头',
+        width: 70
+    });
+
+    var search_date_from = new Ext.form.DateField({
+        format: 'Y-m-d',
+        width: 110
+    });
+
+    var search_date_to = new Ext.form.DateField({
+        format: 'Y-m-d',
+        width: 110
+    });
+
+    var search_query = new Ext.form.TextField({
+        width: 160
+    });
+
+    search_query.on('specialkey', function (f, e) {
+        if (e.getKey() == e.ENTER) {
+            search();
+        }
+    });
+
+    var search = function () {
+        ds.baseParams = ds.baseParams || {};
+        ds.baseParams['type'] = search_type.getValue();
+        ds.baseParams['date_from'] = search_date_from.getValue();
+        ds.baseParams['date_to'] = search_date_to.getRawValue();
+        ds.baseParams['query'] = search_query.getValue();
+        ds.load();
+    };
 
     grid = new Ext.grid.GridPanel({
         store: ds,
@@ -225,18 +222,62 @@ var buildGrid = function () {
                     scroller.each(function () {
                         this.dom.appendChild(msg);
                     });
-                    var tbar1 = new Ext.Toolbar([{
-                        xtype: 'tbtext',
-                        text: '快速查找：'
-                    }, new Ext.ux.form.SearchField({
-                        store: ds
-                    })
-                    , { xtype: 'displayfield', width: 20, value: '' }
+                    var tbar1 = new Ext.Toolbar([
+                    { xtype: 'displayfield', width: 20, value: '' }
                     , {
                         text: '添加销售',
                         cls: 'x-btn-text-icon',
                         iconCls: 'ico-new',
                         handler: newFn
+                    }
+                    , { xtype: 'tbspacer', width: 50 }
+                    , {
+                        xtype: 'tbtext',
+                        text: '   快速查找：'
+                    }
+                    , search_type
+                    , {
+                        xtype: 'tbtext',
+                        text: '',
+                        width: 20
+                    }
+                    , {
+                        xtype: 'tbtext',
+                        text: '起始时间：'
+                    }
+                    , search_date_from
+                    , {
+                        xtype: 'tbtext',
+                        text: '结束时间：',
+                        style: { 'text-align': 'right' },
+                        width: 80
+                    }
+                    , search_date_to
+                    , {
+                        xtype: 'tbtext',
+                        text: '包含：',
+                        style: { 'text-align': 'right' },
+                        width: 60
+                    }
+                    , search_query
+                    , { xtype: 'tbspacer', width: 20 }
+                    , {
+                        text: '查询',
+                        cls: 'x-btn-text-icon',
+                        iconCls: 'ico-search',
+                        handler: search
+                    }
+                    , {
+                        text: '重置',
+                        cls: 'x-btn-text-icon',
+                        iconCls: 'ico-clearAll',
+                        handler: function () {
+                            search_type.reset();
+                            search_date_from.reset();
+                            search_date_to.reset();
+                            search_query.reset();
+                            search();
+                        }
                     }
                     ]);
                     tbar1.render(grid.tbar);

@@ -25,7 +25,7 @@ namespace SupplyChainManager.Controllers
             Page<PurchaseItem> page = new Page<PurchaseItem>();
             page.Params = new Dictionary<string, string>();
             page.Start = formCollection["start"] == null ? 0 : int.Parse(formCollection["start"]);
-            page.Limit = formCollection["limit"] == null ? 50 : int.Parse(formCollection["limit"]);
+            page.Limit = formCollection["limit"] == null ? 20 : int.Parse(formCollection["limit"]);
             if (!string.IsNullOrEmpty(Request["query"]))
             {
                 page.Params.Add("query", formCollection["query"]);
@@ -34,6 +34,7 @@ namespace SupplyChainManager.Controllers
             {
                 page.Params.Add("purchase_id", formCollection["purchase_id"]);
             }
+
             int count = 0;
             var result = dao.FindByPage(page, ref count);
             page.Root = result;

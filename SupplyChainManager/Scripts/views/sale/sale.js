@@ -2,75 +2,193 @@
     var config = config || {};
     var fp;
     var ds_item, grid_item;
-    var fp_reject, win_reject;
     var t_id = Ext.id();
     var client_id;
+    var ds_import, grid_import, fp_import, win_import;
 
-    var submit = function () {
-        if (config['record']) {
-            Ext.Ajax.request({
-                url: root_path + 'Sale/ChangeStatus',
-                params: { id: config['record'].data.Id, value: 'submitted' },
-                success: function (response) {
-                    var data = Ext.util.JSON.decode(response.responseText);
-                    if (data.success) {
-                        config['onClose'](config['parentId']);
-                    }
-                    else {
-                        Ext.MessageBox.alert('Warning', data.msg);
-                    }
+    var columns_item = [
+                new Ext.grid.RowNumberer(),
+                { header: '商品编号', width: 70, dataIndex: 'ItemId' },
+                { header: '商品名称', width: 320, dataIndex: 'ItemName' },
+                { header: '规格', width: 70, dataIndex: 'Spec' },
+                { header: '单位', width: 50, dataIndex: 'Unit' },
+                { header: '仓库名称', width: 60, dataIndex: 'StoreName' },
+                { header: '生产日期', width: 90, dataIndex: 'DateProduct', sortable: true, renderer: dateFormat },
+                { header: '商品数量', width: 60, dataIndex: 'Quantity', editor: new Ext.form.NumberField({
+                    allowBlank: false,
+                    allowNegative: false,
+                    maxValue: 100000,
+                    decimalPrecision: 0
+                })
+                },
+                { header: '价格', width: 60, dataIndex: 'Price', renderer: renderFloat, editor: new Ext.form.NumberField({
+                    allowBlank: false,
+                    allowNegative: false,
+                    maxValue: 100000,
+                    decimalPrecision: 2
+                })
+                },
+                { header: '优惠价', width: 60, dataIndex: 'Promotion', renderer: renderFloat, editor: new Ext.form.NumberField({
+                    allowBlank: true,
+                    allowNegative: false,
+                    maxValue: 100000,
+                    decimalPrecision: 2
+                })
+                },
+                { header: '金额小计', width: 60, dataIndex: 'Amount', renderer: renderFloat },
+                { header: '备注', width: 80, dataIndex: 'Remark', renderer: function (value, metadata) {
+                    metadata.attr = 'style="white-space:normal;"';
+                    return value;
+                }, editor: new Ext.form.TextField({
+                    allowBlank: true
+                })
                 }
-            });
-        }
-        else {
-            fp.form.findField('Status').setValue('submitted');
-            save();
-        }
-    }
+                //, { header: '可售数', width: 60, dataIndex: 'QuantityStore' }
+        ];
 
-    var reject = function (comments) {
-        if (config['record']) {
-            Ext.Ajax.request({
-                url: root_path + 'Sale/Reject',
-                params: { id: config['record'].data.Id, reject_comments: comments },
-                success: function (response) {
-                    var data = Ext.util.JSON.decode(response.responseText);
-                    if (data.success) {
-                        config['onClose'](config['parentId']);
+    var buildImport = function (client_id) {
+
+        ds_import = new Ext.data.Store({
+            url: root_path + 'SaleItem/Index',
+            reader: new Ext.data.JsonReader({
+                totalProperty: 'TotalProperty',
+                successProperty: 'Success',
+                id: 'Id',
+                root: 'Root',
+                fields: config['item_config'].fields
+            })
+        });
+
+        grid_import = new Ext.grid.EditorGridPanel({
+            store: ds_import,
+            columns: [
+                { header: '商品编号', width: 70, dataIndex: 'ItemId' }
+                , { header: '商品名称', width: 300, dataIndex: 'ItemName' }
+                , { header: '规格', width: 70, dataIndex: 'Spec' }
+                , { header: '单位', width: 50, dataIndex: 'Unit' }
+                , { header: '数量', width: 60, dataIndex: 'Quantity' }
+                , { header: '销售价', width: 70, dataIndex: 'Price' }
+                , { header: '仓库名称', width: 60, dataIndex: 'StoreName' }
+                , { header: '生产日期', width: 90, dataIndex: 'DateProduct', sortable: true, renderer: dateFormat }
+                , { header: '可售数', width: 60, dataIndex: 'QuantityStore' }
+                , { header: '效期', width: 60, dataIndex: 'ValidDate' }
+            ],
+            border: true,
+            cls: 'detail-grid',
+            columnLines: true,
+            region: 'center',
+            title: '数据预览: ',
+            clicksToEdit: 1
+        });
+
+        fp_import = new Ext.FormPanel({
+            url: '/Sale/Import',
+            labelAlign: 'right',
+            labelWidth: 50,
+            region: 'north',
+            height: 65,
+            bodyStyle: 'padding:10px',
+            border: false,
+            fileUpload: true,
+            defaults: { anchor: '97%' },
+            items: [
+            {
+                xtype: 'hidden',
+                field: 'ClientId',
+                value: client_id
+            },
+            {
+                xtype: 'compositefield',
+                msgTarget: 'side',
+                allowBlank: false,
+                items: [{
+                    xtype: 'fileuploadfield',
+                    emptyText: '请选择导入文件...',
+                    fieldLabel: '文件',
+                    allowBlank: false,
+                    name: 'upload',
+                    width: 600,
+                    buttonCfg: {
+                        text: '浏览...',
+                        width: 50,
+                        iconCls: 'icon-browse'
+                    },
+                    validator: function (v) {
+                        //if (!/\.xls$/.test(v) && !/\.xlsx$/.test(v)) {
+                        if (!/\.xlsx$/.test(v)) {
+                            return false;
+                        }
+                        return true;
                     }
-                    else {
-                        Ext.MessageBox.alert('warning', data.msg);
+                }, {
+                    xtype: 'button',
+                    width: 70,
+                    text: '上传',
+                    handler: function () {
+                        if (fp_import.getForm().isValid()) {
+                            Ext.Msg.confirm('确认', '确认是否上传数据 ?', function (btn) {
+                                if ('yes' == btn) {
+                                    fp_import.getForm().submit({
+                                        success: function (form, action) {
+                                            Ext.each(action.result.data, function (item) {
+                                                var object_item = ds_item.recordType;
+                                                var rec_item = new object_item({ ItemId: item.ItemId, ItemName: item.ItemName, Spec: item.Spec, Unit: item.Unit, Barcode: item.Barcode, ItemNo: item.ItemNo, Quantity: item.Quantity, Price: item.Price, QuantityStore: 0, QuantityReal: 0, AmountReal: 0, QuantityMiss: 0, AmountMiss: 0 });
+                                                ds_import.insert(0, rec_item);
+                                            });
+                                            fp_import.form.reset();
+                                        },
+                                        failure: function (form, action) {
+                                            var info = '上传失败！';
+                                            alert(info);
+                                        }
+                                    });
+                                }
+                            });
+                        }
                     }
+                }]
+            }, {
+                xtype: 'displayfield',
+                value: '<font color=red>只接受上传 .xlsx 格式的数据文件 !</font>'
+            }],
+            buttonAlign: 'right',
+            minButtonWidth: 50
+        });
+
+        win_import = new Ext.Window({
+            title: '单据导入',
+            width: 930,
+            height: 600,
+            resizable: false,
+            modal: true,
+            closeAction: 'hide',
+            layout: 'border',
+            listeners: {
+                'hide': function () {
+                    fp_import.getForm().reset();
                 }
-            });
-        }
-    }
-
-    var showReject = function () {
-        buildRejectWin();
-        win_reject.show();
-    }
-
-    var pass = function () {
-        if (config['record']) {
-            Ext.getBody().mask("processing...", "x-mask-loading");
-            Ext.Ajax.request({
-                url: root_path + 'Sale/Pass',
-                params: { id: config['record'].data.Id },
-                success: function (response) {
-                    var data = Ext.util.JSON.decode(response.responseText);
-                    if (data.success) {
-                        config['onClose'](config['parentId']);
-                    }
-                    else {
-                        Ext.MessageBox.alert('warning', data.msg);
-                    }
-                    Ext.getBody().unmask();
+            },
+            items: [fp_import, grid_import],
+            buttons: [{
+                text: '导入',
+                handler: function () {
+                    var modified = ds_import.modified;
+                    ds_import.each(function (record) {
+                        //var object_sale = ds_item.recordType;
+                        //var rec_sale = new object_sale({ ItemId: record.data.ItemId, ItemName: record.data.ItemName, Spec: record.data.Spec, Unit: record.data.Unit, Barcode: record.data.Barcode, ItemNo: record.data.ItemNo, QuantityStore: record.data.RealCount, QuantityReal: 0, AmountReal: 0, QuantityMiss: 0, AmountMiss: 0 });
+                        ds_item.add([record]);
+                    });
+                    win_import.hide();
                 }
-            });
-
-        }
-    }
+            }, {
+                text: '关闭',
+                handler: function () {
+                    fp_import.getForm().reset();
+                    win_import.hide();
+                }
+            }]
+        });
+    };
 
     var cancel = function () {
         config['onClose'](config['parentId']);
@@ -135,7 +253,7 @@
                 onSelect: function (recs) {
                     Ext.each(recs, function (record) {
                         var object_sale = ds_item.recordType;
-                        var rec_sale = new object_sale({ ItemId: record.data.Id, ItemName: record.data.ItemName, StoreId: record.data.StoreId, StoreName: record.data.StoreName, DateProduct: record.data.DateProduct, Spec: record.data.Spec, Unit: record.data.Unit, Barcode: record.data.Barcode, ItemNo: record.data.ItemNo });
+                        var rec_sale = new object_sale({ ItemId: record.data.ItemId, ItemName: record.data.ItemName, StoreId: record.data.StoreId, StoreName: record.data.StoreName, BatchId: record.data.BatchId, BatchNo: record.data.BatchNo, DateProduct: record.data.DateProduct, Spec: record.data.Spec, Unit: record.data.Unit, Barcode: record.data.Barcode, ItemNo: record.data.ItemNo, QuantityStore: record.data.RealCount, QuantityReal: 0, AmountReal: 0, QuantityMiss: 0, AmountMiss: 0 });
                         ds_item.add([rec_sale]);
                     });
                     //selectItem.hide();
@@ -143,46 +261,6 @@
             });
             selectItemBatch.show();
         });
-    }
-
-    var buildRejectWin = function () {
-
-        fp_reject = new Ext.form.FormPanel({
-            labelAlign: 'right',
-            labelWidth: 1,
-            bodyStyle: 'padding:5px 5px 0',
-            layout: 'form',
-            defaultType: 'textfield',
-            defaults: {
-                width: 410
-            },
-            items: [{
-                xtype: 'textarea',
-                height: 140,
-                name: 'Comments'
-            }]
-        });
-
-        win_reject = new Ext.Window({
-            title: 'reject comments',
-            width: 450,
-            height: 220,
-            modal: true,
-            layout: 'fit',
-            items: fp_reject,
-            buttons: [{
-                text: 'cancel',
-                handler: function () {
-                    win_reject.close();
-                }
-            }, {
-                text: 'ok',
-                handler: function () {
-                    reject(fp_reject.form.findField('Comments').getValue());
-                    win_reject.close();
-                }
-            }]
-        })
     }
 
     var buildPanel = function () {
@@ -229,45 +307,6 @@
             })
         });
 
-        var columns_item = [
-                new Ext.grid.RowNumberer(),
-                { header: '商品编号', width: 70, dataIndex: 'ItemId' },
-                { header: '商品名称', width: 320, dataIndex: 'ItemName' },
-                { header: '规格', width: 70, dataIndex: 'Spec' },
-                { header: '单位', width: 50, dataIndex: 'Unit' },
-                { header: '仓库名称', width: 60, dataIndex: 'StoreName' },
-                { header: '生产日期', width: 90, dataIndex: 'DateProduct', sortable: true, renderer: dateFormat }, 
-                { header: '商品数量', width: 60, dataIndex: 'Quantity', editor: new Ext.form.NumberField({
-                    allowBlank: false,
-                    allowNegative: false,
-                    maxValue: 100000,
-                    decimalPrecision: 0
-                })
-                },
-                { header: '价格', width: 60, dataIndex: 'Price', renderer: renderFloat, editor: new Ext.form.NumberField({
-                    allowBlank: false,
-                    allowNegative: false,
-                    maxValue: 100000,
-                    decimalPrecision: 2
-                })
-                },
-                { header: '优惠价', width: 60, dataIndex: 'Promotion', renderer: renderFloat, editor: new Ext.form.NumberField({
-                    allowBlank: true,
-                    allowNegative: false,
-                    maxValue: 100000,
-                    decimalPrecision: 2
-                })
-                },
-                { header: '金额小计', width: 60, dataIndex: 'Amount', renderer: renderFloat },
-                { header: '备注', width: 80, dataIndex: 'Remark', renderer: function (value, metadata) {
-                    metadata.attr = 'style="white-space:normal;"';
-                    return value;
-                }, editor: new Ext.form.TextField({
-                    allowBlank: true
-                })
-                }
-        ];
-
         ds_item = new Ext.data.Store({
             url: root_path + 'SaleItem/Index',
             reader: new Ext.data.JsonReader({
@@ -305,7 +344,31 @@
                         cal();
                     }
                 }
-            }],
+            }
+            ,
+                {
+                    text: '导入商品',
+                    cls: 'x-btn-text-icon',
+                    iconCls: 'ico-restore',
+                    handler: function () {
+                        var client_id = fp.form.findField('ClientId').getValue();
+                        if (!client_id) {
+                            Ext.MessageBox.alert('提示', '请先选择商家!');
+                            return;
+                        }
+                        ScriptMgr.loadCss({
+                            scripts: [root_path + 'scripts/lib/ext-3.4.0/ux/fileuploadfield/css/fileuploadfield.css']
+                        });
+                        ScriptMgr.loadJs({
+                            scripts: [root_path + 'scripts/lib/ext-3.4.0/ux/fileuploadfield/fileuploadfield.js?ver=' + new Date().getTime()],
+                            callback: function () {
+                                buildImport();
+                                win_import.show();
+                            }
+                        });
+                    }
+                }
+            ],
             clicksToEdit: 1,
             listeners: {
                 'cellclick': function (grid, rowIndex, columnIndex) {
@@ -326,6 +389,14 @@
                             e.record.set('Amount', amount.toString());
                         }
                         cal();
+                    }
+                    if (e.field == 'Quantity') {
+                        var quantity = parseInt(e.record.get('Quantity'));
+                        var store = parseInt(e.record.get('QuantityStore'));
+                        if (quantity > store) {
+                            Ext.MessageBox.alert('提示', '销售数量超过了库存数，请重新确认!');
+                            e.record.set('Quantity', 0);
+                        }
                     }
                 }
             },
@@ -355,20 +426,12 @@
                 width: 1080,
                 footerStyle: 'background-color: #e0e0e0;',
                 buttons: [{
-                    text: '退回',
-                    disabled: (!config['edit'] || config['record'].data.Status != 'submitted' || (!user_role.is_manager && !user_role.is_finance)) || (config['record'].data.MgrApproved == true && user_role.is_manager && !user_role.is_finance) || (config['record'].data.FinanceApproved == true && user_role.is_finance),
-                    handler: showReject
-                }, {
-                    text: '同意',
-                    disabled: (!config['edit'] || config['record'].data.Status != 'submitted' || (!user_role.is_manager && !user_role.is_finance)) || (config['record'].data.MgrApproved == true && user_role.is_manager && !user_role.is_finance) || (config['record'].data.FinanceApproved == true && user_role.is_finance),
-                    handler: pass
-                }, {
                     text: '取消',
                     //disabled: config['edit'],
                     handler: cancel
                 }, {
                     text: '保存',
-                    disabled: (config['edit'] && (config['record'].data.AddId != login_id || config['record'].data.Status != '待审核') && (config['record'].data.FinanceApproved != true || config['record'].data.FinanceId != login_id)),
+                    disabled: (config['edit'] && (config['record'].data.AddId != login_id || config['record'].data.Status != '待出库')),
                     handler: save
                 }]
             },
@@ -442,7 +505,7 @@
                         valueField: 'StoreName',
                         displayField: 'StoreName',
                         mode: 'remote',
-                        allowBlank: false,
+                        allowBlank: true,
                         store: ds_client_store,
                         selectOnFocus: true,
                         editable: true,
@@ -465,8 +528,7 @@
                         xtype: 'textfield',
                         name: 'Address',
                         width: 300,
-                        allowBlank: true,
-                        readOnly: (config['edit'] && (config['record'].data.AddId != login_id || config['record'].data.Status != '待审核'))
+                        allowBlank: true
                     }, {
                         xtype: 'displayfield',
                         value: '<span style="width: 80px;text-align: right;font-size: 13px;font-weight: bold;">收货人：</span>',
@@ -475,8 +537,7 @@
                         xtype: 'textfield',
                         name: 'Contact',
                         width: 80,
-                        allowBlank: true,
-                        readOnly: (config['edit'] && (config['record'].data.AddId != login_id || config['record'].data.Status != '待审核'))
+                        allowBlank: true
                     }, {
                         xtype: 'displayfield',
                         value: '<span style="width: 80px;text-align: right;font-size: 13px;font-weight: bold;">联系电话：</span>',
@@ -485,8 +546,7 @@
                         xtype: 'textfield',
                         name: 'Tel',
                         width: 150,
-                        allowBlank: true,
-                        readOnly: (config['edit'] && (config['record'].data.AddId != login_id || config['record'].data.Status != '待审核'))
+                        allowBlank: true
                     }
                 ]
                 }, {
@@ -521,7 +581,6 @@
                         editable: false,
                         triggerAction: 'all',
                         allowBlank: true,
-                        readOnly: (config['edit'] && (config['record'].data.AddId != login_id || config['record'].data.Status != '待审核')),
                         selectOnFocus: true
                     }, {
                         xtype: 'displayfield',
@@ -543,7 +602,6 @@
                         editable: false,
                         triggerAction: 'all',
                         allowBlank: true,
-                        readOnly: (config['edit'] && (config['record'].data.AddId != login_id || config['record'].data.Status != '待审核')),
                         selectOnFocus: true
                     }, {
                         xtype: 'displayfield',
@@ -565,7 +623,6 @@
                         editable: false,
                         triggerAction: 'all',
                         allowBlank: true,
-                        readOnly: (config['edit'] && (config['record'].data.AddId != login_id || config['record'].data.Status != '待审核')),
                         selectOnFocus: true
                     }
                 ]
@@ -595,20 +652,12 @@
                 width: 1080,
                 footerStyle: 'background-color: #e0e0e0;',
                 buttons: [{
-                    text: '退回',
-                    disabled: (!config['edit'] || config['record'].data.Status != 'submitted' || (!user_role.is_manager && !user_role.is_finance)) || (config['record'].data.MgrApproved == true && user_role.is_manager && !user_role.is_finance) || (config['record'].data.FinanceApproved == true && user_role.is_finance),
-                    handler: showReject
-                }, {
-                    text: '同意',
-                    disabled: (!config['edit'] || config['record'].data.Status != 'submitted' || (!user_role.is_manager && !user_role.is_finance)) || (config['record'].data.MgrApproved == true && user_role.is_manager && !user_role.is_finance) || (config['record'].data.FinanceApproved == true && user_role.is_finance),
-                    handler: pass
-                }, {
                     text: '取消',
                     //disabled: config['edit'],
                     handler: cancel
                 }, {
                     text: '保存',
-                    disabled: (config['edit'] && (config['record'].data.AddId != login_id || config['record'].data.Status != '待审核') && (config['record'].data.FinanceApproved != true || config['record'].data.FinanceId != login_id)),
+                    disabled: (config['edit'] && (config['record'].data.AddId != login_id || config['record'].data.Status != '待出库')),
                     handler: save
                 }]
             }

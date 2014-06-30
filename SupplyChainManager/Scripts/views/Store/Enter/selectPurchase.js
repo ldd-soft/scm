@@ -1,21 +1,21 @@
-﻿SelectEnterItem = function (config) {
+﻿SelectPurchase = function (config) {
     var config = config || {};
     var ds, grid;
     var pageSize = 100;
     var win;
     var search_field;
-    var item_fields = ['Id', 'Code', 'ItemId', 'ItemName', 'ItemNo', 'Code', 'Brand', 'Spec', 'Barcode', 'Unit', 'Quantity', 'QuantityReal', 'QuantityMiss', 'SupplyId', 'SupplyName', 'AddId', 'AddName', 'DateAdded', 'Status'];
+    var fields = ['Id', 'SupplyId', 'SupplyName', 'SupplyType', 'Brand', 'AddId', 'AddName', 'DateAdded', 'Amount', 'Status', 'DateEnter', 'EnterId', 'IncludeTax', 'FreightType', 'DeliverType', 'PaymentStatus', 'Invoice', 'ExpectArrive', 'PaymentTerm', 'CheckId', 'CheckName', 'DateChecked', 'ApproveId', 'ApproveName', 'DateApproved', 'Remark', 'PurchaseItem']
 
     var buildGrid = function () {
         ds = new Ext.data.Store({
-            url: root_path + 'Enter/ListEnterItem',
+            url: root_path + 'Enter/ListPurchase',
             baseParams: { 'type': config['type'], 'supply_id': config['supply_id'], 'store_id': config['store_id'] },
             reader: new Ext.data.JsonReader({
                 totalProperty: 'TotalProperty',
                 successProperty: 'Success',
                 id: 'Id',
                 root: 'Root',
-                fields: item_fields
+                fields: fields
             }),
             listeners: {
                 'load': function (store, rs) {
@@ -70,17 +70,19 @@
         grid = new Ext.grid.GridPanel({
             store: ds,
             region: 'center',
-            sm: multiSelect,
             columns: [
-                multiSelect
-            , { header: '商品编码', width: 70, dataIndex: 'ItemId', sortable: true }
-            , { header: '商品名称', width: 300, dataIndex: 'ItemName', sortable: true }
-            , { header: '供应商名称', width: 90, dataIndex: 'SupplyName', sortable: true }
-            , { header: '采购日期', width: 90, dataIndex: 'DateAdded', sortable: true, renderer: dateFormat }
-            , { header: '采购人', width: 70, dataIndex: 'AddName', sortable: true }
-            , { header: '应收数量', width: 70, dataIndex: 'Quantity', sortable: true }
-            , { header: '已收数量', width: 70, dataIndex: 'QuantityReal', sortable: true }
-            , { header: '未收数量', width: 70, dataIndex: 'QuantityMiss', sortable: true }
+               { header: '订单 #', width: 90, dataIndex: 'Id', sortable: true }
+            , { header: '商家名称', width: 200, dataIndex: 'SupplyName', sortable: true }
+            , { header: '采购金额', width: 90, dataIndex: 'Amount', renderer: renderFloat }
+            , { header: '采购单状态', width: 90, dataIndex: 'Status', sortable: true }
+            , { header: '录入人', width: 80, dataIndex: 'AddName', sortable: true }
+            , { header: '订购时间', width: 120, dataIndex: 'DateAdded', sortable: true, renderer: dateFormat }
+            , { header: '是否含税', width: 70, dataIndex: 'IncludeTax', sortable: true }
+            , { header: '运费承担', width: 70, dataIndex: 'FreightType', sortable: true }
+            , { header: '运送方式', width: 70, dataIndex: 'DeliverType', sortable: true }
+            , { header: '复核人', width: 80, dataIndex: 'CheckName', sortable: true }
+            , { header: '批准人', width: 80, dataIndex: 'ApproveName', sortable: true }
+            , { header: '备注', width: 110, dataIndex: 'Remark', sortable: true }
             ],
             tbar: [
                 '快速查找：',
@@ -256,7 +258,7 @@
 
     var buildWin = function () {
         win = new Ext.Window({
-            title: '入库商品列表',
+            title: '采购单列表',
             width: 900,
             height: 450,
             modal: true,
@@ -277,13 +279,9 @@
     };
 
     var select = function () {
-        var recs = grid.getSelectionModel().getSelections();
-        if (recs.length > 1 && config['is_select_single']) {
-            Ext.MessageBox.alert('警告', '只能选择一个!');
-            return;
-        }
+        var rec = grid.getSelectionModel().getSelected();
 
-        config['onSelect'](recs);
+        config['onSelect'](rec);
         //win.close();
     }
 

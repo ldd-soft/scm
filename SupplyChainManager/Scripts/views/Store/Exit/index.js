@@ -5,7 +5,7 @@ var record;
 var expander;
 
 var fields = ['Id', 'ExitType', 'TableName', 'RecordId', 'RecordName', 'StoreId', 'StoreName', 'AddId', 'AddName', 'DateAdded', 'DeliverType', 'DeliverName', 'DeliverContact', 'DeliverTel', 'DeliverPayType', 'DeliverAmount', 'CheckId', 'CheckName', 'DateChecked', 'Remark']
-var fields_item = ['Id', 'ExitId', 'TableName', 'RecordId', 'ItemId', 'ItemName', 'StoreId', 'StoreName', 'BatchNo', 'DateProduct', 'ItemNo', 'Barcode', 'Spec', 'Unit', 'QuantityNeed', 'QuantityReal', 'QuantityMiss', 'Remark'];
+var fields_item = ['Id', 'ExitId', 'TableName', 'RecordId', 'ItemId', 'ItemName', 'StoreId', 'StoreName', 'BatchId', 'BatchNo', 'DateProduct', 'ItemNo', 'Barcode', 'Spec', 'Unit', 'Price', 'QuantityNeed', 'QuantityReal', 'QuantityMiss', 'Remark', 'Guid'];
 
 var buildGrid = function () {
     ds = new Ext.data.Store({
@@ -134,19 +134,19 @@ var buildGrid = function () {
 
     var columns = [
             expander,
-            { header: '出库单 #', width: 90, dataIndex: 'Id', sortable: true, renderer: underline }
-            , { header: '出库类型', width: 80, dataIndex: 'ExitType', sortable: true }
-            , { header: '商家名称', width: 300, dataIndex: 'RecordName', sortable: true, renderer: underline }
-            , { header: '录入人', width: 80, dataIndex: 'AddName', sortable: true }
-            , { header: '出库时间', width: 120, dataIndex: 'DateAdded', sortable: true, renderer: dateFormat }
+            { header: '出库单 #', width: 70, dataIndex: 'Id', sortable: true, renderer: underline }
+            , { header: '出库类型', width: 70, dataIndex: 'ExitType', sortable: true }
+            , { header: '商家名称', width: 200, dataIndex: 'RecordName', sortable: true, renderer: underline }
+            , { header: '录入人', width: 70, dataIndex: 'AddName', sortable: true }
+            , { header: '出库时间', width: 90, dataIndex: 'DateAdded', sortable: true, renderer: dateFormat }
             , { header: '收货方式', width: 70, dataIndex: 'DeliverType', sortable: true }
             , { header: '物流名称', width: 80, dataIndex: 'DeliverName', sortable: true }
             , { header: '物流联系人', width: 80, dataIndex: 'DeliverContact', sortable: true }
             , { header: '物流联系电话', width: 90, dataIndex: 'DeliverTel', sortable: true }
             , { header: '运费支付方式', width: 90, dataIndex: 'DeliverPayType', sortable: true }
-            , { header: '运费金额', width: 90, dataIndex: 'DeliverAmount', renderer: renderFloat }
-            , { header: '复核人', width: 80, dataIndex: 'CheckName', sortable: true }
-            , { header: '备注', width: 130, dataIndex: 'Remark', sortable: true }
+            , { header: '运费金额', width: 70, dataIndex: 'DeliverAmount', renderer: renderFloat }
+            , { header: '复核人', width: 70, dataIndex: 'CheckName', sortable: true }
+            , { header: '备注', width: 100, dataIndex: 'Remark', sortable: true }
         ];
 
     var columns_item = [

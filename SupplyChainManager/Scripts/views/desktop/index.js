@@ -110,8 +110,14 @@ var loadScript = function (name, title, url) {
 };
 
 var initData = function () {
-
+    Ext.get('chgpwd').on('click', function () {
+        mycall('system/public/changepass', function () {
+            var changepass = new ChangePassword();
+            changepass.show();
+        });
+    });
 };
+
 var layout;
 var buildLayout = function () {
 
@@ -247,10 +253,19 @@ var buildLayout = function () {
     });
 };
 
+var timeOut = function () {
+    Ext.util.Observable.observeClass(Ext.data.Connection);
+    Ext.data.Connection.on('requestcomplete', function (conn, resp, options) {
+        if (resp && resp.getResponseHeader && resp.getResponseHeader('__timeout')) {
+            window.location.href = root_path + 'Account/Login';
+        }
+    });
+}
 
 var init = function () {
     initData();
     buildLayout();
+    timeOut();
 };
 
 Ext.onReady(init);

@@ -33,7 +33,9 @@
         var login_id = '@(((User)Session["user"]).Id)';
         var login_login = '@(((User)Session["user"]).Login)';
         var login_name = '@(((User)Session["user"]).Name)';
-        
+        var user_role = {};
+        user_role.is_manager = ('@(((User)Session["user"]).IsManager)'.toLowerCase() === 'true');
+        user_role.is_finance = ('@(((User)Session["user"]).IsFinance)'.toLowerCase() === 'true');
     </script>
 
 </head>
@@ -47,17 +49,17 @@
             
             <div id="banner_title"> ldd-scm</div> 
             <ul>
-                <!--
+                
                 <li class="logout first">
                     <div class="labelValue">
-                        <label>logout:</label>
+                        <label>注销:</label>
                         <a href="@Url.Action("Logout", "Account")">@(((User)Session["user"]).Name)</a>
                     </div>
                 </li>
-                -->
+                
                 <li class="help last">
-                    <a title="Help" href="" target="_blank">
-                        <span>help</span>
+                    <a title="Help" href="#" id="chgpwd">
+                        <span>修改密码</span>
                         <span class="btn">
                         <span class="icn"/>
                         </span>

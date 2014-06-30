@@ -813,6 +813,10 @@ fieldset
 {
     background-image: url("../icons/checkout.png") !important;
 }
+.ico-clearAll
+{
+    background-image: url("../icons/clearAll.png") !important;
+}
 .ico-classify
 {
     background-image: url("../icons/classify.png") !important;
@@ -1014,7 +1018,7 @@ fieldset
 }
 .ico-search
 {
-    background-image: url("../icons/search.png");
+    background-image: url("../icons/querybuilder.png");
 }
 .ico-save
 {

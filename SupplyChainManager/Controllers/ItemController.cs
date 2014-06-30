@@ -115,9 +115,26 @@ namespace SupplyChainManager.Controllers
             {
                 page.Params.Add("query", formCollection["query"]);
             }
+            if (!string.IsNullOrEmpty(Request["type"]))
+            {
+                page.Params.Add("type", Request["type"]);
+            }
+            if (!string.IsNullOrEmpty(Request["date_from"]))
+            {
+                page.Params.Add("date_from", Request["date_from"]);
+            }
+            if (!string.IsNullOrEmpty(Request["date_to"]))
+            {
+                page.Params.Add("date_to", Request["date_to"]);
+            }
+
             if (!string.IsNullOrEmpty(Request["brand"]))
             {
                 page.Params.Add("brand", formCollection["brand"]);
+            }
+            if (!string.IsNullOrEmpty(Request["only_count"]))
+            {
+                page.Params.Add("only_count", Request["only_count"]);
             }
 
             int count = 0;
@@ -143,6 +160,19 @@ namespace SupplyChainManager.Controllers
             {
                 page.Params.Add("query", formCollection["query"]);
             }
+            if (!string.IsNullOrEmpty(Request["type"]))
+            {
+                page.Params.Add("type", Request["type"]);
+            }
+            if (!string.IsNullOrEmpty(Request["date_from"]))
+            {
+                page.Params.Add("date_from", Request["date_from"]);
+            }
+            if (!string.IsNullOrEmpty(Request["date_to"]))
+            {
+                page.Params.Add("date_to", Request["date_to"]);
+            }
+
             if (!string.IsNullOrEmpty(Request["brand"]))
             {
                 page.Params.Add("brand", formCollection["brand"]);
@@ -150,6 +180,15 @@ namespace SupplyChainManager.Controllers
             if (!string.IsNullOrEmpty(Request["store_id"]))
             {
                 page.Params.Add("store_id", formCollection["store_id"]);
+            }
+            if (!string.IsNullOrEmpty(Request["item_id"]))
+            {
+                page.Params.Add("item_id", formCollection["item_id"]);
+            }
+
+            if (!string.IsNullOrEmpty(Request["only_count"]))
+            {
+                page.Params.Add("only_count", Request["only_count"]);
             }
 
             int count = 0;

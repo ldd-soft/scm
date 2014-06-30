@@ -37,6 +37,9 @@
       <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -1543,11 +1546,13 @@
     <Content Include="Scripts\views\Store\Enter\index.js" />
     <Content Include="Scripts\views\Store\Enter\enter.js" />
     <Content Include="Scripts\views\Store\Enter\selectEnterItem.js" />
+    <Content Include="Scripts\views\Store\Enter\selectPurchase.js" />
     <Content Include="Scripts\views\Store\Exit\add.js" />
     <Content Include="Scripts\views\Store\Exit\edit.js" />
     <Content Include="Scripts\views\Store\Exit\exit.js" />
     <Content Include="Scripts\views\Store\Exit\index.js" />
     <Content Include="Scripts\views\Store\Exit\selectExitItem.js" />
+    <Content Include="Scripts\views\Store\Query\index.js" />
     <Content Include="Scripts\views\system\clientitem\clientitem.js" />
     <Content Include="Scripts\views\system\client\select.js" />
     <Content Include="Scripts\views\system\item\add.js" />
@@ -1556,6 +1561,7 @@
     <Content Include="Scripts\views\system\item\index.js" />
     <Content Include="Scripts\views\system\item\select.js" />
     <Content Include="Scripts\views\system\item\selectBatch.js" />
+    <Content Include="Scripts\views\system\public\changepass.js" />
     <Content Include="Scripts\views\system\public\data.js" />
     <Content Include="Scripts\views\system\supply\select.js" />
     <Content Include="Scripts\views\system\user\add.js" />
@@ -1597,6 +1603,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\lib\ext-3.4.0\resources\images\vista\dd\" />
     <Folder Include="Scripts\lib\ext-3.4.0\resources\images\vista\tree\" />
+    <Folder Include="Scripts\views\Store\Check\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

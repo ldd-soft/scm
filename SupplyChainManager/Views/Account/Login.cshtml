@@ -1,5 +1,6 @@
 ﻿@{
     Layout = null;
+    Response.AddHeader("__timeout", "true");
 }
 <!DOCTYPE html>
 <html>
@@ -22,7 +23,7 @@
             </div>
             <div class="content">
                 <form name="LoginForm" id="LoginForm" action="@Url.Action("Login", "Account")" method="post" onsubmit="">
-                <span class="logo"></span>
+                
                 <label for="username">
                     用户名</label>
                 <input name="form_login" id="form_login" type="text" />

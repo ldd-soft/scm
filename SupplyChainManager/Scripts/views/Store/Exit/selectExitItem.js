@@ -4,12 +4,12 @@
     var pageSize = 100;
     var win;
     var search_field;
-    var item_fields = ['Id', 'StoreId', 'StoreName', 'DateProduct', 'ItemId', 'ItemName', 'ItemNo', 'Code', 'Brand', 'Spec', 'Barcode', 'Unit', 'Quantity', 'ClientId', 'ClientName', 'AddId', 'AddName', 'DateAdded', 'Status'];
+    var item_fields = ['Id', 'StoreId', 'StoreName', 'BatchId', 'BatchNo', 'DateProduct', 'ItemId', 'ItemName', 'ItemNo', 'Code', 'Brand', 'Spec', 'Barcode', 'Unit', 'Price', 'Promotion', 'Quantity', 'ClientId', 'ClientName', 'AddId', 'AddName', 'DateAdded', 'Status'];
 
     var buildGrid = function () {
         ds = new Ext.data.Store({
             url: root_path + 'Exit/ListExitItem',
-            baseParams: { 'type': config['type'] },
+            baseParams: { 'type': config['type'], 'client_id': config['client_id'], 'store_id': config['store_id'] },
             reader: new Ext.data.JsonReader({
                 totalProperty: 'TotalProperty',
                 successProperty: 'Success',
@@ -80,7 +80,7 @@
             , { header: '生产日期', width: 90, dataIndex: 'DateProduct', sortable: true, renderer: dateFormat }
             , { header: '销售日期', width: 90, dataIndex: 'DateAdded', sortable: true, renderer: dateFormat }
             , { header: '销售人', width: 70, dataIndex: 'AddName', sortable: true }
-            , { header: '销售数量', width: 70, dataIndex: 'Quantity', sortable: true }
+            , { header: '出库数量', width: 70, dataIndex: 'Quantity', sortable: true }
             ],
             tbar: [
                 '快速查找：',

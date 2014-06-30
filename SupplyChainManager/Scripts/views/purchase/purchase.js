@@ -134,9 +134,11 @@
             var selectItem = new SelectItem({
                 onSelect: function (recs) {
                     Ext.each(recs, function (record) {
-                        var object_purchase = ds_item.recordType;
-                        var rec_purchase = new object_purchase({ ItemId: record.data.Id, ItemName: record.data.ItemName, Spec: record.data.Spec, Unit: record.data.Unit, Barcode: record.data.Barcode, ItemNo: record.data.ItemNo });
-                        ds_item.add([rec_purchase]);
+                        if (ds_item.find('ItemId', record.data.Id) == -1) {
+                            var object_purchase = ds_item.recordType;
+                            var rec_purchase = new object_purchase({ ItemId: record.data.Id, ItemName: record.data.ItemName, Spec: record.data.Spec, Unit: record.data.Unit, Barcode: record.data.Barcode, ItemNo: record.data.ItemNo, QuantityReal: 0, AmountReal: 0, QuantityMiss: 0, AmountMiss: 0 });
+                            ds_item.add([rec_purchase]);
+                        }
                     });
                     //selectItem.hide();
                 },
@@ -165,19 +167,19 @@
         });
 
         win_reject = new Ext.Window({
-            title: 'reject comments',
+            title: '退回意见',
             width: 450,
             height: 220,
             modal: true,
             layout: 'fit',
             items: fp_reject,
             buttons: [{
-                text: 'cancel',
+                text: '取消',
                 handler: function () {
                     win_reject.close();
                 }
             }, {
-                text: 'ok',
+                text: '确定',
                 handler: function () {
                     reject(fp_reject.form.findField('Comments').getValue());
                     win_reject.close();
@@ -303,13 +305,13 @@
                 'afteredit': function (e) {
 
                     if (e.field == 'Quantity' || e.field == 'Price' || e.field == 'Promotion') {
-                        if (e.record.get('Promotion')) {
+                        if (e.record.get('Promotion') && e.record.get('Quantity')) {
                             var quantity = new BigDecimal(e.record.get('Quantity').toString());
                             var promotion = new BigDecimal(e.record.get('Promotion').toString());
                             var amount = quantity.multiply(promotion);
                             e.record.set('Amount', amount.toString());
                         }
-                        else {
+                        else if (e.record.get('Price') && e.record.get('Quantity')) {
                             var quantity = new BigDecimal(e.record.get('Quantity').toString());
                             var price = new BigDecimal(e.record.get('Price').toString());
                             var amount = quantity.multiply(price);
@@ -346,11 +348,11 @@
                 footerStyle: 'background-color: #e0e0e0;',
                 buttons: [{
                     text: '退回',
-                    disabled: (!config['edit'] || config['record'].data.Status != 'submitted' || (!user_role.is_manager && !user_role.is_finance)) || (config['record'].data.MgrApproved == true && user_role.is_manager && !user_role.is_finance) || (config['record'].data.FinanceApproved == true && user_role.is_finance),
+                    disabled: (!config['edit'] || (!user_role.is_manager && !user_role.is_finance)) || (config['record'].data.Status == '待审核' && user_role.is_manager) || (config['record'].data.Status == '待批准' && user_role.is_finance) || config['record'].data.Status == '待入库',
                     handler: showReject
                 }, {
                     text: '同意',
-                    disabled: (!config['edit'] || config['record'].data.Status != 'submitted' || (!user_role.is_manager && !user_role.is_finance)) || (config['record'].data.MgrApproved == true && user_role.is_manager && !user_role.is_finance) || (config['record'].data.FinanceApproved == true && user_role.is_finance),
+                    disabled: (!config['edit'] || (!user_role.is_manager && !user_role.is_finance)) || (config['record'].data.Status == '待审核' && user_role.is_manager) || (config['record'].data.Status == '待批准' && user_role.is_finance) || config['record'].data.Status == '待入库',
                     handler: pass
                 }, {
                     text: '取消',
@@ -358,7 +360,7 @@
                     handler: cancel
                 }, {
                     text: '保存',
-                    disabled: (config['edit'] && (config['record'].data.AddId != login_id || config['record'].data.Status != '待审核') && (config['record'].data.FinanceApproved != true || config['record'].data.FinanceId != login_id)),
+                    disabled: (config['edit'] && (config['record'].data.AddId != login_id || config['record'].data.Status != '待审核')),
                     handler: save
                 }]
             },
@@ -526,11 +528,11 @@
                 footerStyle: 'background-color: #e0e0e0;',
                 buttons: [{
                     text: '退回',
-                    disabled: (!config['edit'] || config['record'].data.Status != 'submitted' || (!user_role.is_manager && !user_role.is_finance)) || (config['record'].data.MgrApproved == true && user_role.is_manager && !user_role.is_finance) || (config['record'].data.FinanceApproved == true && user_role.is_finance),
+                    disabled: (!config['edit'] || (!user_role.is_manager && !user_role.is_finance)) || (config['record'].data.Status == '待审核' && user_role.is_manager) || (config['record'].data.Status == '待批准' && user_role.is_finance) || config['record'].data.Status == '待入库',
                     handler: showReject
                 }, {
                     text: '同意',
-                    disabled: (!config['edit'] || config['record'].data.Status != 'submitted' || (!user_role.is_manager && !user_role.is_finance)) || (config['record'].data.MgrApproved == true && user_role.is_manager && !user_role.is_finance) || (config['record'].data.FinanceApproved == true && user_role.is_finance),
+                    disabled: (!config['edit'] || (!user_role.is_manager && !user_role.is_finance)) || (config['record'].data.Status == '待审核' && user_role.is_manager) || (config['record'].data.Status == '待批准' && user_role.is_finance) || config['record'].data.Status == '待入库',
                     handler: pass
                 }, {
                     text: '取消',
@@ -538,7 +540,7 @@
                     handler: cancel
                 }, {
                     text: '保存',
-                    disabled: (config['edit'] && (config['record'].data.AddId != login_id || config['record'].data.Status != '待审核') && (config['record'].data.FinanceApproved != true || config['record'].data.FinanceId != login_id)),
+                    disabled: (config['edit'] && (config['record'].data.AddId != login_id || config['record'].data.Status != '待审核')),
                     handler: save
                 }]
             }

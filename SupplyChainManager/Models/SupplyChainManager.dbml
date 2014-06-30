@@ -236,149 +236,6 @@
       <Column Name="Address" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Sale" Member="Sale">
-    <Type Name="Sale">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="ClientId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ClientName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="SaleType" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="AddId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="AddName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="DateAdded" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
-      <Column Name="Status" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="ClientStore" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Address" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="Contact" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Tel" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="DateExit" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ExitId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="IncludeTax" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="FreightType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="DeliverType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="PaymentStatus" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Invoice" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="PaymentTerm" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CheckId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CheckName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="DateChecked" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ApproveId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ApproveName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="DateApproved" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Remark" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
-      <Association Name="Sale_SaleItem" Member="SaleItem" ThisKey="Id" OtherKey="SaleId" Type="SaleItem" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SaleItem" Member="SaleItem">
-    <Type Name="SaleItem">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="SaleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ItemId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ItemName" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
-      <Column Name="StoreId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="StoreName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="BatchNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="DateProduct" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ItemNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Barcode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Spec" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Unit" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Price" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
-      <Column Name="Discount" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
-      <Column Name="Promotion" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
-      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
-      <Column Name="QuantityReal" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="AmountReal" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
-      <Column Name="QuantityMiss" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="AmountMiss" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
-      <Column Name="MissProcess" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
-      <Column Name="Remark" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
-      <Association Name="Sale_SaleItem" Member="Sale" AccessModifier="Internal" ThisKey="SaleId" OtherKey="Id" Type="Sale" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.ItemBatchStockView" Member="ItemBatchStockView">
-    <Type Name="ItemBatchStockView">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="ItemName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="Code" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="ItemType" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="SubTitle" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="Brand" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="Spec" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="Barcode" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="Color" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="Style" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="Long" Type="System.Decimal" DbType="Decimal(9,2)" CanBeNull="true" />
-      <Column Name="Wide" Type="System.Decimal" DbType="Decimal(9,2)" CanBeNull="true" />
-      <Column Name="High" Type="System.Decimal" DbType="Decimal(9,2)" CanBeNull="true" />
-      <Column Name="NetWeight" Type="System.Decimal" DbType="Decimal(9,2)" CanBeNull="true" />
-      <Column Name="Unit" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="BoxCount" Type="System.Decimal" DbType="Decimal(9,2)" CanBeNull="true" />
-      <Column Name="Producer" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="Packages" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="Guarantee" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="IsGuarantee" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="BatchType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="CreatedId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CreatedName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="IsStoped" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="LimitCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="StoreId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="StoreName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="DateProduct" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="RealCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Enter" Member="Enter">
-    <Type Name="Enter">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="EnterType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="TableName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="RecordId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="RecordName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="StoreId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="StoreName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="AddId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="AddName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="DateAdded" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="DeliverType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="DeliverName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="DeliverContact" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="DeliverTel" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="DeliverPayType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="DeliverAmount" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
-      <Column Name="CheckId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CheckName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="DateChecked" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Remark" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Association Name="Enter_EnterItem" Member="EnterItem" ThisKey="Id" OtherKey="EnterId" Type="EnterItem" />
-    </Type>
-  </Table>
-  <Table Name="dbo.EnterItem" Member="EnterItem">
-    <Type Name="EnterItem">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="EnterId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TableName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="RecordId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ItemId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ItemName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="StoreId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="StoreName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="BatchNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="DateProduct" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ItemNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Barcode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Spec" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Unit" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="QuantityNeed" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="QuantityReal" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="QuantityMiss" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Remark" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Association Name="Enter_EnterItem" Member="Enter" AccessModifier="Internal" ThisKey="EnterId" OtherKey="Id" Type="Enter" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.PurchaseItemView" Member="PurchaseItemView">
     <Type Name="PurchaseItemView">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -437,27 +294,116 @@
       <Association Name="Exit_ExitItem" Member="ExitItem" ThisKey="Id" OtherKey="ExitId" Type="ExitItem" />
     </Type>
   </Table>
-  <Table Name="dbo.ExitItem" Member="ExitItem">
-    <Type Name="ExitItem">
+  <Table Name="dbo.ItemStock" Member="ItemStock">
+    <Type Name="ItemStock">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="ExitId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TableName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="RecordId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ItemId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ItemName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="StoreId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="StoreName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ItemName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="SupplyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ClientId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="InitCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="InitPrice" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
+      <Column Name="InitAmount" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
+      <Column Name="EnterType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DateEnter" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EnterCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EnterPrice" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
+      <Column Name="EnterAmount" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
+      <Column Name="ExitType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ExitCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateExit" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ExitPrice" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
+      <Column Name="ExitAmount" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
+      <Column Name="RealCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RealAmount" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
+      <Column Name="TableName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="RecordGuid" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StockBatch" Member="StockBatch">
+    <Type Name="StockBatch">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StoreId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StoreName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ItemName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="BatchNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DateProduct" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Guarantee" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="InitCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EnterType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DateEnter" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EnterCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ExitType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ExitCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateExit" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RealCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TableName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="RecordGuid" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Sale" Member="Sale">
+    <Type Name="Sale">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ClientId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ClientName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="SaleType" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="AddId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AddName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="DateAdded" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ClientStore" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Contact" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Tel" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DateExit" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ExitId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IncludeTax" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="FreightType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DeliverType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PaymentStatus" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Invoice" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PaymentTerm" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CheckId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CheckName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="DateChecked" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ApproveId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ApproveName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="DateApproved" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Association Name="Sale_SaleItem" Member="SaleItem" ThisKey="Id" OtherKey="SaleId" Type="SaleItem" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SaleItem" Member="SaleItem">
+    <Type Name="SaleItem">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SaleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ItemName" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="StoreId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StoreName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BatchId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="BatchNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="DateProduct" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ItemNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Barcode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Spec" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Unit" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="QuantityNeed" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
+      <Column Name="Discount" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
+      <Column Name="Promotion" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
       <Column Name="QuantityReal" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AmountReal" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
       <Column Name="QuantityMiss" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Remark" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Association Name="Exit_ExitItem" Member="Exit" AccessModifier="Internal" ThisKey="ExitId" OtherKey="Id" Type="Exit" IsForeignKey="true" />
+      <Column Name="AmountMiss" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
+      <Column Name="MissProcess" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Association Name="Sale_SaleItem" Member="Sale" AccessModifier="Internal" ThisKey="SaleId" OtherKey="Id" Type="Sale" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.SaleItemView" Member="SaleItemView">
@@ -468,6 +414,7 @@
       <Column Name="ItemName" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
       <Column Name="StoreId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="StoreName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BatchId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="BatchNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="DateProduct" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ItemNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
@@ -494,8 +441,125 @@
       <Column Name="Address" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="Contact" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Tel" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="Code" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="Brand" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ItemBatchStockView" Member="ItemBatchStockView">
+    <Type Name="ItemBatchStockView">
+      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ItemName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="ItemType" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="SubTitle" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Brand" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Spec" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Barcode" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Color" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Style" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Long" Type="System.Decimal" DbType="Decimal(9,2)" CanBeNull="true" />
+      <Column Name="Wide" Type="System.Decimal" DbType="Decimal(9,2)" CanBeNull="true" />
+      <Column Name="High" Type="System.Decimal" DbType="Decimal(9,2)" CanBeNull="true" />
+      <Column Name="NetWeight" Type="System.Decimal" DbType="Decimal(9,2)" CanBeNull="true" />
+      <Column Name="Unit" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BoxCount" Type="System.Decimal" DbType="Decimal(9,2)" CanBeNull="true" />
+      <Column Name="Producer" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Packages" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Guarantee" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsGuarantee" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="BatchType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IsStoped" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="LimitCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BatchNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="StoreId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StoreName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DateProduct" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RealCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ValidDate" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ExitItem" Member="ExitItem">
+    <Type Name="ExitItem">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ExitId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TableName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="RecordId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ItemName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="StoreId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StoreName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BatchId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BatchNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DateProduct" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ItemNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Barcode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Spec" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Unit" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
+      <Column Name="QuantityNeed" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuantityReal" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuantityMiss" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MissProcess" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Guid" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Exit_ExitItem" Member="Exit" AccessModifier="Internal" ThisKey="ExitId" OtherKey="Id" Type="Exit" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Enter" Member="Enter">
+    <Type Name="Enter">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EnterType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TableName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="RecordId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RecordName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="StoreId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StoreName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="AddId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AddName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DateAdded" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DeliverType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DeliverName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DeliverContact" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DeliverTel" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DeliverPayType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DeliverAmount" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
+      <Column Name="CheckId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CheckName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="DateChecked" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="PurchaseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Enter_EnterItem" Member="EnterItem" ThisKey="Id" OtherKey="EnterId" Type="EnterItem" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EnterItem" Member="EnterItem">
+    <Type Name="EnterItem">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EnterId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TableName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="RecordId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ItemName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="StoreId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StoreName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BatchNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DateProduct" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ItemNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Barcode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Spec" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Unit" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(14,4)" CanBeNull="true" />
+      <Column Name="QuantityNeed" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuantityReal" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="QuantityMiss" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MissProcess" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Remark" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Guid" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Enter_EnterItem" Member="Enter" AccessModifier="Internal" ThisKey="EnterId" OtherKey="Id" Type="Enter" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

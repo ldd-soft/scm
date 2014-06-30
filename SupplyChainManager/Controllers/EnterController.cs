@@ -27,6 +27,23 @@ namespace SupplyChainManager.Controllers
             page.Params = new Dictionary<string, string>();
             page.Start = formCollection["start"] == null ? 0 : int.Parse(formCollection["start"]);
             page.Limit = formCollection["limit"] == null ? 50 : int.Parse(formCollection["limit"]);
+            if (!string.IsNullOrEmpty(Request["query"]))
+            {
+                page.Params.Add("query", formCollection["query"]);
+            }
+            if (!string.IsNullOrEmpty(Request["type"]))
+            {
+                page.Params.Add("type", Request["type"]);
+            }
+            if (!string.IsNullOrEmpty(Request["date_from"]))
+            {
+                page.Params.Add("date_from", Request["date_from"]);
+            }
+            if (!string.IsNullOrEmpty(Request["date_to"]))
+            {
+                page.Params.Add("date_to", Request["date_to"]);
+            }
+
             int count = 0;
             var result = dao.FindByPage(page, ref count);
             page.Root = result;
@@ -116,9 +133,61 @@ namespace SupplyChainManager.Controllers
             {
                 page.Params.Add("brand", formCollection["brand"]);
             }
+            if (!string.IsNullOrEmpty(Request["supply_id"]))
+            {
+                page.Params.Add("supply_id", formCollection["supply_id"]);
+            }
+
+            if (!string.IsNullOrEmpty(Request["store_id"]))
+            {
+                page.Params.Add("store_id", formCollection["store_id"]);
+            }
 
             int count = 0;
             var result = dao.ListEnterItem(page, ref count);
+            page.Root = result;
+            page.TotalProperty = count;
+
+            JsonNetResult jsonNetResult = new JsonNetResult();
+            jsonNetResult.Formatting = Formatting.Indented;
+            jsonNetResult.SerializerSettings.Converters.Add(new JavaScriptDateTimeConverter());
+            jsonNetResult.Data = page;
+
+            return jsonNetResult;
+        }
+
+        public JsonNetResult ListPurchase(FormCollection formCollection)
+        {
+            Page<Purchase> page = new Page<Purchase>();
+            page.Params = new Dictionary<string, string>();
+            page.Start = formCollection["start"] == null ? 0 : int.Parse(formCollection["start"]);
+            page.Limit = formCollection["limit"] == null ? 100 : int.Parse(formCollection["limit"]);
+            if (!string.IsNullOrEmpty(Request["query"]))
+            {
+                page.Params.Add("query", formCollection["query"]);
+            }
+            if (!string.IsNullOrEmpty(Request["brand"]))
+            {
+                page.Params.Add("brand", formCollection["brand"]);
+            }
+            if (!string.IsNullOrEmpty(Request["supply_id"]))
+            {
+                page.Params.Add("supply_id", formCollection["supply_id"]);
+            }
+
+            if (!string.IsNullOrEmpty(Request["store_id"]))
+            {
+                page.Params.Add("store_id", formCollection["store_id"]);
+            }
+
+            int count = 0;
+            var result = dao.ListPurchase(page, ref count);
+            foreach (var item in result)
+            {
+                item.PurchaseItem.Clear();
+                var unEnterItem = dao.FindItemById(item.Id);
+                item.PurchaseItem.AddRange(unEnterItem);
+            }
             page.Root = result;
             page.TotalProperty = count;
 

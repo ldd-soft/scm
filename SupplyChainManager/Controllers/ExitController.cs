@@ -40,7 +40,7 @@ namespace SupplyChainManager.Controllers
             return jsonNetResult;
 
         }
-
+        //
         // Ìí¼Ó        
         public ContentResult Create(Exit exit, List<ExitItem> items)
         {
@@ -116,7 +116,15 @@ namespace SupplyChainManager.Controllers
             {
                 page.Params.Add("brand", formCollection["brand"]);
             }
+            if (!string.IsNullOrEmpty(Request["client_id"]))
+            {
+                page.Params.Add("client_id", formCollection["client_id"]);
+            }
 
+            if (!string.IsNullOrEmpty(Request["store_id"]))
+            {
+                page.Params.Add("store_id", formCollection["store_id"]);
+            }
             int count = 0;
             var result = dao.ListExitItem(page, ref count);
             page.Root = result;
